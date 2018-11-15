@@ -13,6 +13,7 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
+    public int generateId = 0;
     // private List<Player> players = new ArrayList<Player>();
 
     public List<Player> getAllPlayers() {
@@ -29,6 +30,7 @@ public class PlayerService {
 
     public void addPlayer(Player player) {
         //players.add(player);
+        player.setPlayerId(generateId++);
         playerRepository.save(player);
     }
 
@@ -54,4 +56,29 @@ public class PlayerService {
         //players.removeIf(t -> t.getPlayerId() == playerId);
         playerRepository.deleteById(playerId);
     }
+
+    public String logInPlayer(String nickname, String password) {
+        Player temp = playerRepository.findByNickname(nickname);
+        if (temp == null) return "No Player with Nickname " + nickname + ".";
+        if (temp.getPassword().equals(password)) return "Logged in.";
+        else return "Wrong Password.";
+    }
+
+    public String logInPlayer(Player player) {
+        Player temp = playerRepository.findByNickname(player.getNickname());
+        if (temp == null) return "No Player with Nickname " + player.getNickname() + ".";
+        if (temp.getPassword().equals(player.getPassword())) return "Logged in.";
+        else return "Wrong Password.";
+    }
+
+    public String registerPlayer(Player player) {
+        Player temp = playerRepository.findByNickname(player.getNickname());
+        if (temp == null) {
+            player.setPlayerId(generateId++);
+            playerRepository.save(player);
+            return "Player Saved.";
+        }
+        else return "Nickname Not Unique.";
+    }
+
 }
