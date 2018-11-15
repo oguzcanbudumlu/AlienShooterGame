@@ -31,6 +31,7 @@ public class PlayerService {
     public void addPlayer(Player player) {
         //players.add(player);
         player.setPlayerId(generateId++);
+        player.setPassword(Integer.toString(player.getPassword().hashCode()));
         playerRepository.save(player);
     }
 
@@ -67,7 +68,7 @@ public class PlayerService {
     public String logInPlayer(Player player) {
         Player temp = playerRepository.findByNickname(player.getNickname());
         if (temp == null) return "No Player with Nickname " + player.getNickname() + ".";
-        if (temp.getPassword().equals(player.getPassword())) return "Logged in.";
+        if (temp.getPassword().equals(Integer.toString(player.getPassword().hashCode()))) return "Logged in.";
         else return "Wrong Password.";
     }
 
@@ -75,6 +76,7 @@ public class PlayerService {
         Player temp = playerRepository.findByNickname(player.getNickname());
         if (temp == null) {
             player.setPlayerId(generateId++);
+            player.setPassword(Integer.toString(player.getPassword().hashCode()));
             playerRepository.save(player);
             return "Player Saved.";
         }

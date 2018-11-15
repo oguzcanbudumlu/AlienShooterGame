@@ -103,4 +103,14 @@ public class GameService {
 
         return result;
     }
+
+    public long getNextGameId() {
+        long max = 0;
+        List<Game> games = new ArrayList<Game>();
+        gameRepository.findAll().forEach(games::add);
+        for (int i = 0; i < games.size(); i++) {
+            if (games.get(i).getGameId() > max) max = games.get(i).getGameId();
+        }
+        return max + 1;
+    }
 }

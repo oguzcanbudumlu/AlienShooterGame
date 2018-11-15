@@ -41,4 +41,7 @@ public class GameController {
 
     @RequestMapping("/scoreboardweekly")
     public List<Score> getScoreBoardWeekly() { return gameService.getScoreBoardWeekly(); }
+
+    @RequestMapping("/getNextGameId")
+    public long getNextGameId() { return gameService.getNextGameId(); }
 }
