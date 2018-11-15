@@ -9,6 +9,8 @@ import javax.persistence.Table;
 @Table(name = "PLAYER")
 public class Player {
 
+    /* A player consists of id, nickname and password.
+    Password will be saved in form of its hash.  */
     @Id
     @Column(name = "PlayerId")
     private Long playerId;
@@ -17,6 +19,9 @@ public class Player {
     @Column(name = "Password")
     private String password;
 
+
+    /* If there does not exist default constructor,
+    Spring cannot create object based on requests */
     public Player() {}
 
     public Player(long playerId, String nickname, String password) {
@@ -26,6 +31,8 @@ public class Player {
         this.password = password;
     }
 
+
+    /* Getter and setter functions for attributes */
     public long getPlayerId() {
         return playerId;
     }

@@ -16,6 +16,10 @@ public class PlayerService {
     public int generateId = 0;
     // private List<Player> players = new ArrayList<Player>();
 
+    /**
+     * Returns all players in the database
+     * @return all players in the database
+     */
     public List<Player> getAllPlayers() {
         //return players;
         List<Player> players = new ArrayList<Player>();
@@ -23,11 +27,20 @@ public class PlayerService {
         return players;
     }
 
+
+    /**
+     * With specific Id, it returns Player who has this Id
+     * @param playerId
+     * @return Player with given Id
+     */
     public Optional<Player> getPlayer(long playerId) {
-        //return players.stream().filter(t -> t.getPlayerId() == playerId).findFirst().get();
         return playerRepository.findById(playerId);
     }
 
+    /**
+     * It saves new Player to the database with POST request
+     * @param player
+     */
     public void addPlayer(Player player) {
         //players.add(player);
         player.setPlayerId(generateId++);
@@ -35,29 +48,42 @@ public class PlayerService {
         playerRepository.save(player);
     }
 
+    /**
+     * It updates saved Player with PUT request by deleting
+     * previous record from the database and saving new record
+     * to the database with the same Id.
+     * @param playerId
+     * @param player
+     */
     public void updatePlayer(Long playerId, Player player) {
-        /*
-        for (int i = 0; i < players.size(); i++) {
-            Player temp = players.get(i);
-            if (temp.getPlayerId() == playerId) {
-                players.set(i, player);
-                return;
-            }
-        }
-        */
         Optional<Player> temp = playerRepository.findById(playerId);
         if (temp != null) {
             playerRepository.deleteById(playerId);
             playerRepository.save(player);
         }
-
     }
 
+    /**
+     * it deletes the player with given Id. This function is called
+     * with DELETE request.
+     * @param playerId
+     */
     public void deletePlayer(long playerId) {
         //players.removeIf(t -> t.getPlayerId() == playerId);
         playerRepository.deleteById(playerId);
     }
 
+    /**
+     * It provides any client to access the system with her/his
+     * nickname and password and if the client is logged in the database
+     * with these, s/he can log in successfully. Otherwise, it returns
+     * "No Player with <nickname>" or "Wrong Pass" depending on
+     * self-explanatory situations. This function is called with
+     * GET request.
+     * @param nickname
+     * @param password
+     * @return status about operation
+     */
     public String logInPlayer(String nickname, String password) {
         Player temp = playerRepository.findByNickname(nickname);
         if (temp == null) return "No Player with Nickname " + nickname + ".";
@@ -65,6 +91,16 @@ public class PlayerService {
         else return "Wrong Password.";
     }
 
+    /**
+     * It provides any client to access the system. It is called when any
+     * request body is provided with POST request. The function queries the database
+     * with given Player object to verify whether it is logged in the database. If
+     * there does not exist such a Player, it returns "No Player with <nickname>.". If
+     * username and password of Player matches with those in the database, it returns
+     * "Logged in". If password does not match, it returns "Wrong Password."
+     * @param player
+     * @return status about login process
+     */
     public String logInPlayer(Player player) {
         Player temp = playerRepository.findByNickname(player.getNickname());
         if (temp == null) return "No Player with Nickname " + player.getNickname() + ".";
@@ -72,6 +108,14 @@ public class PlayerService {
         else return "Wrong Password.";
     }
 
+    /**
+     * The function takes any Player candidate and previously
+     * queries the database with nickname of the Player. If it
+     * does not exist in the database, it returns "Player Saved.".
+     * Otherwise, it returns "Nickname Not Unique.".
+     * @param player
+     * @return status about registration process
+     */
     public String registerPlayer(Player player) {
         Player temp = playerRepository.findByNickname(player.getNickname());
         if (temp == null) {
@@ -83,6 +127,12 @@ public class PlayerService {
         else return "Nickname Not Unique.";
     }
 
+
+    /**
+     * When we want to create Player, we make use of getNextId()
+     * function to determine primary key(its id) of Player.
+     * @return next available Id for new Player
+     */
     public long getNextId() {
         long max = 0;
         List<Player> players = new ArrayList<Player>();
