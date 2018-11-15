@@ -112,7 +112,7 @@ public class PlayerService {
      * does not exist in the database, it returns "Player Saved.".
      * Otherwise, it returns "Nickname Not Unique.".
      * @param player
-     * @return status about registration process
+     * @return status about registration process and registers player if appropriate
      */
     public String registerPlayer(Player player) {
         Player temp = playerRepository.findByNickname(player.getNickname());

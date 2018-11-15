@@ -7,6 +7,14 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
+/*
+* An object of Game class is created everytime a player
+* plays a game. It keeps an id, a score achieved by the player,
+* a date which show what day the game is played, and a player as a foreign key
+* who played the game.
+* We are planning to create game objects everytime whenever the players finish the game.
+ */
+
 @Entity
 @Table(name = "GAME")
 public class Game {
@@ -22,10 +30,12 @@ public class Game {
     @Column(name = "Date")
     private LocalDate date;
 
+    //Player as foreign key, a player can play many games.
     @ManyToOne
     @JoinColumn(name = "playerId")
     private Player player;
 
+    //Constructors
     public Game() {}
 
     public Game(Long gameId, Long score, LocalDate date, Player player) {
@@ -35,6 +45,7 @@ public class Game {
         this. player = player;
     }
 
+    //Getters and setters
     public Long getGameId() {return gameId;}
 
     public Long getScore() {return score;}
