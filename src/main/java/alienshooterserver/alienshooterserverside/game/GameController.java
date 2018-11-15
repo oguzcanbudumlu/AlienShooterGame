@@ -1,5 +1,6 @@
 package alienshooterserver.alienshooterserverside.game;
 
+import alienshooterserver.alienshooterserverside.score.Score;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,4 +35,10 @@ public class GameController {
     public void deleteGame(@PathVariable long gameId) {
         gameService.deleteGame(gameId);
     }
+
+    @RequestMapping("/scoreboardallthetime")
+    public List<Score> getScoreBoardAll() { return gameService.getScoreBoardAll(); }
+
+    @RequestMapping("/scoreboardweekly")
+    public List<Score> getScoreBoardWeekly() { return gameService.getScoreBoardWeekly(); }
 }

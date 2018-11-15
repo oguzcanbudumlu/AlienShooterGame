@@ -81,4 +81,13 @@ public class PlayerService {
         else return "Nickname Not Unique.";
     }
 
+    public long getNextId() {
+        long max = 0;
+        List<Player> players = new ArrayList<Player>();
+        playerRepository.findAll().forEach(players::add);
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getPlayerId() > max) max = players.get(i).getPlayerId();
+        }
+        return max + 1;
+    }
 }

@@ -1,14 +1,20 @@
 package alienshooterserver.alienshooterserverside.player;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "PLAYER")
 public class Player {
 
     @Id
+    @Column(name = "PlayerId")
     private Long playerId;
+    @Column(name = "Nickname")
     private String nickname;
+    @Column(name = "Password")
     private String password;
 
     public Player() {}

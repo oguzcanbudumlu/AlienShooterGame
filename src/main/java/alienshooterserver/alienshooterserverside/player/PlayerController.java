@@ -52,4 +52,9 @@ public class PlayerController {
     public String logInPlayer(@RequestBody Player player) {
         return playerService.logInPlayer(player);
     }
+
+    @RequestMapping("/nextId")
+    public long getNextId() {
+        return playerService.getNextId();
+    }
 }
