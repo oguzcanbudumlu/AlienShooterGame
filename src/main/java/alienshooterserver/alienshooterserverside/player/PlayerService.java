@@ -14,14 +14,12 @@ public class PlayerService {
     private PlayerRepository playerRepository;
 
     public int generateId = 0;
-    // private List<Player> players = new ArrayList<Player>();
 
     /**
      * Returns all players in the database
      * @return all players in the database
      */
     public List<Player> getAllPlayers() {
-        //return players;
         List<Player> players = new ArrayList<Player>();
         playerRepository.findAll().forEach(players::add);
         return players;
