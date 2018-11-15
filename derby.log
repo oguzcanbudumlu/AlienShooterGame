@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Thu Nov 15 10:56:29 EET 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0167-165f-13b6-0000120e78d0 
+on database directory memory:/home/omer/Desktop/alien-shooter-serverside/testdb with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/home/omer/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_181-8u181-b13-1ubuntu0.18.04.1-b13
+user.dir=/home/omer/Desktop/alien-shooter-serverside
+os.name=Linux
+os.arch=amd64
+os.version=4.15.0-38-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
