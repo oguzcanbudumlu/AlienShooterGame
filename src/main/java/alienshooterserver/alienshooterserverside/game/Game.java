@@ -45,6 +45,12 @@ public class Game {
         this. player = player;
     }
 
+    public Game(Long score, LocalDate date, Player player) {
+        this.score = score;
+        this.date = date;
+        this. player = player;
+    }
+
     //Getters and setters
     public Long getGameId() {return gameId;}
 

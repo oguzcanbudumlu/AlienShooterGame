@@ -31,6 +31,12 @@ public class Player {
         this.password = password;
     }
 
+    public Player(String nickname, String password) {
+        super();
+        this.nickname = nickname;
+        this.password = password;
+    }
+
 
     /* Getter and setter functions for attributes */
     public long getPlayerId() {

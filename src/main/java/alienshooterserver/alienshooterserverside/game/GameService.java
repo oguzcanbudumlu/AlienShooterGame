@@ -133,4 +133,11 @@ public class GameService {
         }
         return max + 1;
     }
+
+    /**
+     * deletes all the elements in the repository.
+     */
+    public void deleteAllGames() {
+        gameRepository.deleteAll();
+    }
 }

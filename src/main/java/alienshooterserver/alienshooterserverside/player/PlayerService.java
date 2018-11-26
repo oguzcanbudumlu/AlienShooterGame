@@ -25,14 +25,14 @@ public class PlayerService {
         return players;
     }
 
-
     /**
      * With specific Id, it returns Player who has this Id
      * @param playerId
      * @return Player with given Id
      */
-    public Optional<Player> getPlayer(long playerId) {
-        return playerRepository.findById(playerId);
+    public Player getPlayer(long playerId) {
+        if (playerRepository.findById(playerId) == null) return Optional.of(new Player(-1, "null", "null")).get();
+        return playerRepository.findById(playerId).get();
     }
 
     /**
@@ -41,6 +41,7 @@ public class PlayerService {
      */
     public void addPlayer(Player player) {
         //players.add(player);
+        if (player == null) return;
         player.setPlayerId(generateId++);
         player.setPassword(Integer.toString(player.getPassword().hashCode()));
         playerRepository.save(player);
@@ -102,7 +103,7 @@ public class PlayerService {
     public String logInPlayer(Player player) {
         Player temp = playerRepository.findByNickname(player.getNickname());
         if (temp == null) return "No Player with Nickname " + player.getNickname() + ".";
-        if (temp.getPassword().equals(Integer.toString(player.getPassword().hashCode()))) return "Logged in.";
+        if (temp.getPassword().equals(player.getPassword())) return "Logged in.";
         else return "Wrong Password.";
     }
 
@@ -125,19 +126,25 @@ public class PlayerService {
         else return "Nickname Not Unique.";
     }
 
-
     /**
      * When we want to create Player, we make use of getNextId()
      * function to determine primary key(its id) of Player.
      * @return next available Id for new Player
      */
     public long getNextId() {
-        long max = 0;
+        long max = -1;
         List<Player> players = new ArrayList<Player>();
         playerRepository.findAll().forEach(players::add);
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getPlayerId() > max) max = players.get(i).getPlayerId();
         }
         return max + 1;
+    }
+
+    /**
+     * deletes all the elements in the repository.
+     */
+    public void deleteAll() {
+        playerRepository.deleteAll();
     }
 }

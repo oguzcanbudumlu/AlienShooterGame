@@ -20,7 +20,7 @@ public class PlayerController {
     }
 
     @RequestMapping("/players/{playerId}")
-    public Optional<Player> getPlayer(@PathVariable long playerId) {
+    public Player getPlayer(@PathVariable long playerId) {
         return playerService.getPlayer(playerId);
     }
 
