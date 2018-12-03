@@ -29,7 +29,7 @@ These are of how HTTP verbs map to create, read, update, delete operations in a 
 | /login    |  Log in game | Error | Error | Error |
 | /nextId    | Error | Give id for new player | Error | Error |
 | /games    | Add game | List games | Error | Error |
-| /games/{gameId}    |  | Give game with gameID | If exists, update game | If exists, delete game; if not, error |
+| /games/{gameId}    |  Error | Give game with gameId | If exists, update game | If exists, delete game; if not, error |
 | /scoreboardallthetime    | Error | Give scoreboard for all time | Error | Error |
 | /scoreboardweekly    | Error | Give scoreboard for week | Error | Error |
 | /getNextGameId    | Error | Give id for next game | Error | Error |
