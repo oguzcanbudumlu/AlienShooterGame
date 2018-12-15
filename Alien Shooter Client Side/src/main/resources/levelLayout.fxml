@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane fx:controller="com.example.alienshooterclientside.Controllers.GameController" fx:id="paneLevel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #2a363b;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Line endX="600.0" layoutX="500.0" layoutY="65.0" startX="-400.0" strokeWidth="4.0" />
+      <Label layoutX="100.0" layoutY="14.0" prefHeight="37.0" prefWidth="116.0" text="Score : " textAlignment="CENTER" textFill="#e84a5f">
+         <font>
+            <Font name="Cousine Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="textScore" layoutX="212.0" layoutY="14.0" prefHeight="37.0" prefWidth="70.0" text="#" textFill="#e84a5f">
+         <font>
+            <Font name="Cousine Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="textLevel" layoutX="523.0" layoutY="14.0" prefHeight="37.0" prefWidth="154.0" text="#" textFill="#e84a5f">
+         <font>
+            <Font name="Cousine Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="textHP" layoutX="1041.0" layoutY="14.0" prefHeight="37.0" prefWidth="60.0" text="#" textFill="#e84a5f">
+         <font>
+            <Font name="Cousine Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="822.0" layoutY="14.0" prefHeight="37.0" prefWidth="206.0" text="Health Point :" textFill="#e84a5f">
+         <font>
+            <Font name="Cousine Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
