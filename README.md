@@ -77,8 +77,6 @@ with response
 ```
 
 
-In order to execute server, run these commands in the command line: (assumed that you are in project folder)
-
 In order to run back-end side of the game, the WAR file is created to be deployed to the server.
 
 
