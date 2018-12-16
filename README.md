@@ -77,7 +77,12 @@ with response
 ```
 
 
+In order to execute server, run these commands in the command line:
 
+```
+cd Alien\ Shooter\ Server\ Side/target/
+java -jar alien-shooter-serverside-0.0.1-SNAPSHOT.jar
+```
 
 
 
@@ -86,6 +91,7 @@ with response
 ### Phase 3 - Front End Development 
 
 
+In this phase, graphical user interface is developed. After executing server developed in phase 2, Alien Shooter Game can be played via GUI.
 
 ### Phase 4 - Concurrency 
 
