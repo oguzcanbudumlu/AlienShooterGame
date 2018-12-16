@@ -1,9 +1,7 @@
-# Alien Shooter Game
-
-
-
 ## Introduction
 
+
+We developed a desktop game application called **Alien Shooter Game**. The success criteria in the game is based on collecting points by shooting aliens. The game is comprised of 3  levels with increased difficulty level to level. The game can be played with single player for now. It will be able to be played soon. 
 
 
 ## Project Phases
@@ -13,6 +11,8 @@
 Repository is created.
 
 ### Phase 2 - Back End Development
+
+It is built using Spring Boot, JPA and Rest. It provides secure and efficient way to store and fetch data for the game to and from the remote MySQL database. 
 
 #### HTTP Verbs
 
@@ -40,8 +40,8 @@ These are of how HTTP verbs map to create, read, update, delete operations in a 
 #### POST http://localhost:8080/register
 ```json
 {
-	"nickname": "user1",
-	"password": "key1"
+    "nickname": "user1",
+    "password": "key1"
 }
 ```
 
@@ -80,20 +80,35 @@ with response
 In order to execute server, run these commands in the command line:
 
 ```
-cd Alien\ Shooter\ Server\ Side/target/
+cd alien-shooter-serverside/target/
 java -jar alien-shooter-serverside-0.0.1-SNAPSHOT.jar
 ```
-
-
-
 
 
 ### Phase 3 - Front End Development 
 
 
-In this phase, graphical user interface is developed. After executing server developed in phase 2, Alien Shooter Game can be played via GUI.
+In this phase, graphical user interface is developed. After executing server developed in phase 2 once, Alien Shooter Game can be played via GUI. It is provided how to play game in *howtoplay.pdf* file.
+
+
+Commands to be executed to play the game are:
+
+```
+cd alienshooter-clientside/target/
+java -jar alienshooter-clientside-0.0.1-SNAPSHOT.jar
+```
 
 ### Phase 4 - Concurrency 
+
+*The phase is about to be done.*
+
+
+### Technologies and Tools that are used
+
+• JavaFX : In order to develop front end of the game.
+• MariaDB : In order to set up database server in back end side of the game.
+• Spring Boot : In order to develop back end side (servers, services, controllers) of the game. 
+
 
 
 ## Useful Links
