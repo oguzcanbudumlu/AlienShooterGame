@@ -1,7 +1,7 @@
 ## Introduction
 
 
-We developed a desktop game application called **Alien Shooter Game**. The success criteria in the game is based on collecting points by shooting aliens. The game is comprised of 3  levels with increased difficulty level to level. The game can be played with single player for now. It will be able to be played soon. 
+We developed a desktop game application called **Alien Shooter Game**. The success criteria in the game is based on collecting points by shooting aliens. The game is comprised of 3  levels with increased difficulty level to level. The game can be played with single player for now. It will be able to be played in multiplayer mode soon. 
 
 
 ## Project Phases
@@ -77,21 +77,19 @@ with response
 ```
 
 
-In order to execute server, run these commands in the command line:
+In order to execute server, run these commands in the command line: (assumed that you are in project folder)
 
-```
-cd alien-shooter-serverside/target/
-java -jar alien-shooter-serverside-0.0.1-SNAPSHOT.jar
-```
+In order to run back-end side of the game, the WAR file is created to be deployed to the server.
 
 
 ### Phase 3 - Front End Development 
 
 
-In this phase, graphical user interface is developed. After executing server developed in phase 2 once, Alien Shooter Game can be played via GUI. It is provided how to play game in *howtoplay.pdf* file.
+In this phase, graphical user interface is developed. After executing server developed in phase 2 once, Alien Shooter Game can be played via GUI. It is provided how to play game in *HowtoPlayAlienShooter.pdf* file.
 
 
-Commands to be executed to play the game are:
+Commands to be executed to play the game are: (assumed that you are in project folder)
+
 
 ```
 cd alienshooter-clientside/target/
@@ -105,9 +103,9 @@ java -jar alienshooter-clientside-0.0.1-SNAPSHOT.jar
 
 ### Technologies and Tools that are used
 
-• JavaFX : In order to develop front end of the game.
-• MariaDB : In order to set up database server in back end side of the game.
-• Spring Boot : In order to develop back end side (servers, services, controllers) of the game. 
+- JavaFX : In order to develop front end of the game.
+- MariaDB : In order to set up database server in back end side of the game.
+- Spring Boot : In order to develop back end side (servers, services, controllers) of the game. 
 
 
 
