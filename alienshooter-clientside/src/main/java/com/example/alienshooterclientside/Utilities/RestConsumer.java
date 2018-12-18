@@ -3,18 +3,23 @@ package com.example.alienshooterclientside.Utilities;
 import com.example.alienshooterclientside.Entities.Game;
 import com.example.alienshooterclientside.Entities.Player;
 import com.example.alienshooterclientside.Entities.Score;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,42 +60,28 @@ public class RestConsumer {
      * @param player
      * @return String (either "Nickname Not Unique" or "Player Saved.")
      */
-    public String registerPlayer(Player player) {
-        String output = new String();
-        try {
-            URL url = new URL("http://localhost:8080/register");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
+    public String registerPlayer(Player player)  {
+        String response = new String();
+        try{
+            RestTemplate restTemplate = new RestTemplate();
+            ObjectMapper objectMapper = new ObjectMapper();
 
-            String input = "{\"nickname\":\"";
-            input = input.concat(player.getNickname());
-            input = input.concat("\",\"password\":\"");
-            input = input.concat(player.getPassword());
-            input = input.concat("\"}");
+            player.setPlayerId(getNextGameId());
+            String playerAsString = objectMapper.writeValueAsString(player);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
-            OutputStream outputStream = connection.getOutputStream();
-            outputStream.write(input.getBytes());
-            outputStream.flush();
+            HttpEntity<String> entity = new HttpEntity<String>(playerAsString, headers);
+                    String url
+                = "http://localhost:8080/register";
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (connection.getInputStream())));
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                output = output.concat(line);
-            }
-
-            connection.disconnect();
-
-            return output;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            response = restTemplate.postForObject(url, entity, String.class);
+            return response;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return output;
+        return response;
+
     }
 
     /**
