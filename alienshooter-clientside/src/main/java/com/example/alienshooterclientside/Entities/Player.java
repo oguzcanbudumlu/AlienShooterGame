@@ -1,10 +1,12 @@
 package com.example.alienshooterclientside.Entities;
 
+import com.example.alienshooterclientside.Utilities.Constants;
+
 /**
  * Player class is used like accounts for the game.
  */
 public class Player {
-    private Long playerId;
+    private Long playerId = Constants.DEFAULT_PLAYER_ID;
     private String nickname;
     private String password;
 
@@ -48,21 +50,4 @@ public class Player {
     public void setPassword(String password) {
         this.password = password;
     }
-
-//    @Override
-//    public String toString(){
-//        return "Player{" +
-//                "playerId=" + playerId +
-//                ", nickname: '" + nickname + '\''+
-//            ", password: '" + password + '\'' +
-//                '}' ;
-//    }
-
-
-//    public String toString() {
-//        return "Value{" +
-//                "id=" + playerId +
-//                ", quote='" + nickname + '\'' +
-//                '}';
-//    }
 }

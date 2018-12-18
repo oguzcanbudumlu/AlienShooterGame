@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 /**
  * The purpose of Restconsumer is to connect to the REST server and
  * consume that REST service.
@@ -72,8 +73,7 @@ public class RestConsumer {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> entity = new HttpEntity<String>(playerAsString, headers);
-                    String url
-                = "http://localhost:8080/register";
+            String url = "http://localhost:8080/register";
 
             response = restTemplate.postForObject(url, entity, String.class);
             return response;
@@ -81,7 +81,6 @@ public class RestConsumer {
             e.printStackTrace();
         }
         return response;
-
     }
 
     /**
@@ -102,41 +101,25 @@ public class RestConsumer {
      * @return String ("No Such a Player.", "Wrong Password." or "Logged In.")
      */
     public String logInPlayer(Player player) {
-        String output = new String();
-        try {
-            URL url = new URL("http://localhost:8080/login");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
+        String response = new String();
+        try{
+            RestTemplate restTemplate = new RestTemplate();
+            ObjectMapper objectMapper = new ObjectMapper();
 
-            String input = "{\"nickname\":\"";
-            input = input.concat(player.getNickname());
-            input = input.concat("\",\"password\":\"");
-            input = input.concat(Integer.toString(player.getPassword().hashCode()));
-            input = input.concat("\"}");
+            player.setPassword(Integer.toString(player.getPassword().hashCode()));
+            String playerAsString = objectMapper.writeValueAsString(player);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
-            OutputStream outputStream = connection.getOutputStream();
-            outputStream.write(input.getBytes());
-            outputStream.flush();
+            HttpEntity<String> entity = new HttpEntity<String>(playerAsString, headers);
+            String url = "http://localhost:8080/login";
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (connection.getInputStream())));
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                output = output.concat(line);
-            }
-
-            connection.disconnect();
-
-            return output;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            response = restTemplate.postForObject(url, entity, String.class);
+            return response;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return output;
+        return response;
     }
 
     /**
