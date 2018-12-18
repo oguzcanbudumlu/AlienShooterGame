@@ -1,5 +1,5 @@
 package com.example.alienshooterclientside.Utilities;
 
-public class Constants {
-    public static long DEFAULT_PLAYER_ID = -1;
+public final class Constants {
+    public static final long DEFAULT_PLAYER_ID = -1;
 }
