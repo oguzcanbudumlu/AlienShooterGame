@@ -89,6 +89,8 @@ public class SignInFormController {
             return;
         }
 
+
+
         if(textPassword.getText().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Please enter a password.");

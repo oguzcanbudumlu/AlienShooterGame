@@ -56,7 +56,7 @@ public class SignUpFormController {
     /**
      * This function is called when the player clicks on the Sign up button
      *
-     * Firstly it check if there is any unfilled text or password field, if so
+     * Firstly it checks if there is any unfilled text or password field, if so
      * the player is warned showing a new screen and warning message
      *
      * Then it creates a new player based on the entries on the username and password
