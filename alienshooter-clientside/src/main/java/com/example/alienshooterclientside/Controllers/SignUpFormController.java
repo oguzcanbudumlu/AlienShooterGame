@@ -148,5 +148,4 @@ public class SignUpFormController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-}
+    }}
