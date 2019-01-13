@@ -8,12 +8,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -157,6 +162,31 @@ public class RestConsumer {
         return playerId;
     }
 
+
+    /**
+     *
+     * @param game
+     * @return
+     */
+    String gameMapper(Game game){
+        String mapped = "{\"gameId\":";
+        mapped = mapped.concat(Long.toString(getNextGameId()));
+        mapped = mapped.concat(",\"score\":");
+        mapped = mapped.concat(game.getScore().toString());
+        mapped = mapped.concat(",\"date\":\"");
+        mapped = mapped.concat(game.getDate().toString());
+        mapped = mapped.concat("\",\"player\":{\"playerId\":");
+        mapped = mapped.concat(String.valueOf(getPlayerId(game.getPlayer().getNickname())));
+        mapped = mapped.concat(",\"nickname\":\"");
+        mapped = mapped.concat(game.getPlayer().getNickname());
+        mapped = mapped.concat("\",\"password\":\"");
+        mapped = mapped.concat(Integer.toString(game.getPlayer().getPassword().hashCode()));
+        mapped = mapped.concat("\"}}");
+        return mapped;
+    }
+
+
+
     /**
      * This addGame function is used to save a game to the database.
      * It takes a game object as parametes and it converts this game like String json.
@@ -165,48 +195,25 @@ public class RestConsumer {
      * @param game
      */
     public void addGame(Game game) {
-        try {
-            URL url = new URL("http://10.70.189.180:8080/addgame/");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
 
-            String input = "{\"gameId\":";
-            input = input.concat(Long.toString(getNextGameId()));
-            input = input.concat(",\"score\":");
-            input = input.concat(game.getScore().toString());
-            input = input.concat(",\"date\":\"");
-            input = input.concat(game.getDate().toString());
-            input = input.concat("\",\"player\":{\"playerId\":");
-            input = input.concat(String.valueOf(getPlayerId(game.getPlayer().getNickname())));
-            input = input.concat(",\"nickname\":\"");
-            input = input.concat(game.getPlayer().getNickname());
-            input = input.concat("\",\"password\":\"");
-            input = input.concat(Integer.toString(game.getPlayer().getPassword().hashCode()));
-            input = input.concat("\"}}");
+        try{
+            RestTemplate restTemplate = new RestTemplate();
 
-            OutputStream outputStream = connection.getOutputStream();
-            outputStream.write(input.getBytes());
-            outputStream.flush();
+            String gameAsString = gameMapper(game);
+            System.out.println(gameAsString);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (connection.getInputStream())));
-
-            String line;
-            String output = new String();
-            while ((line = br.readLine()) != null) {
-                output = output.concat(line);
-            }
-
-            connection.disconnect();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            HttpEntity<String> entity = new HttpEntity<String>(gameAsString, headers);
+            String url = "http://10.70.189.180:8080/addgame/";
+            restTemplate.postForObject(url, entity, String.class);
+        }
+        catch (HttpClientErrorException e) {
             e.printStackTrace();
         }
+
     }
+
 
     /**
      * This getNextGameId function is used to get a new gameId.
