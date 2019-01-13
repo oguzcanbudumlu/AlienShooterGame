@@ -56,6 +56,17 @@ import java.util.ArrayList;
  * there are 3 types of enemies and 3 types of bullet for enemies.
  */
 public class GameController {
+    public static double TIMESTEP = 0.01;
+    public static double TOTALTIME = 1;
+    public static boolean DONTSHOWENTRY = false;
+    public static boolean SHOWENTRY = true;
+    public static double SHOOTCHANCE = 0.0007;
+    public static double HARD = 0.85;
+    public static double MEDIUM = 0.65;
+    public static int SCOREFACTOR = 20;
+    public static int HORIZONTALSTEP = 11;
+    public static double VERTICALSTEP = 0.5;
+
     private Stage stage;
 
     private Scene sceneLevel1;
@@ -84,7 +95,7 @@ public class GameController {
 
     private Label labelHPText = new Label("Health Point : ");
     private Label labelHP = new Label("1000");
-    private int HP = 1000;
+    private int healthPoint = 1000;
 
     ImagePattern playerImagePattern = new ImagePattern(new Image("/Assets/player.png"));
     ImagePattern playerBulletImagePattern = new ImagePattern(new Image("/Assets/playerBullet.png"));
@@ -164,7 +175,7 @@ public class GameController {
                 if (gameOver) {
                     timer.stop();
                     GameOverController gameOverController = new GameOverController();
-                    gameOverController.start(stage, HP + score);
+                    gameOverController.start(stage, healthPoint + score);
                 }
             }
         };
@@ -188,10 +199,10 @@ public class GameController {
     private void update() {
         if (level == 1) {
             if (entry) {
-                time -= 0.01;
+                time -= TIMESTEP;
                 if (time < 0) {
-                    entry = false;
-                    time = 1;
+                    entry = DONTSHOWENTRY;
+                    time = TOTALTIME;
                     getReadyForLevel1();
                 }
             }
@@ -201,10 +212,10 @@ public class GameController {
         }
         else if (level == 2) {
             if (entry) {
-                time -= 0.01;
+                time -= TIMESTEP;
                 if (time < 0) {
-                    entry = false;
-                    time = 1;
+                    entry = DONTSHOWENTRY;
+                    time = TOTALTIME;
                     getReadyForLevel2();
                 }
             }
@@ -214,10 +225,10 @@ public class GameController {
         }
         else {
             if (entry) {
-                time -= 0.01;
+                time -= TIMESTEP;
                 if (time < 0) {
-                    entry = false;
-                    time = 1;
+                    entry = DONTSHOWENTRY;
+                    time = TOTALTIME;
                     getReadyForLevel3();
                 }
             }
@@ -247,17 +258,17 @@ public class GameController {
         allGameObjects(root).forEach(gameObject -> {
             if (gameObject instanceof GameObject) {
 
-                 //if the bullet is coming from enemy bullet goes down.
+                //if the bullet is coming from enemy bullet goes down.
                 if (gameObject.getType().equals("enemybullet")) {
                     gameObject.moveDown();
 
                     //if the enemy bullet intersects with the player the HP decreases
                     //and the HP on the scene is updated also the enemybullet is set to be deleted.
                     if (gameObject.getBoundsInParent().intersects(player.getBoundsInParent())) {
-                        HP -= 10 * level;
-                        labelHP.setText(HP + "");
+                        healthPoint -= 10 * level;
+                        labelHP.setText(healthPoint + "");
 
-                        if (HP < 0) {
+                        if (healthPoint < 0) {
                             player.kill();
                             gameOver = true;
                         }
@@ -271,15 +282,15 @@ public class GameController {
 
                         //check if the player bullet intersects with the player if so score is updated
                         if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
-                            score += 20 * level;
+                            score += SCOREFACTOR * level;
                             labelScore.setText(score + "");
 
                             //depending on enemy type I set some randomization to kill the enemy
                             if (enemy.getDifficulty().equals("hard")) {
-                                if (Math.random() > 0.85) enemy.kill();
+                                if (Math.random() > HARD) enemy.kill();
                             }
                             else if (enemy.getDifficulty().equals("medium")) {
-                                if (Math.random() > 0.65) enemy.kill();
+                                if (Math.random() > MEDIUM) enemy.kill();
                             }
                             else enemy.kill();
                             gameObject.kill();
@@ -295,7 +306,7 @@ public class GameController {
                 }
                 //if gameobject is enemy it shoots based on a random number.
                 else if (gameObject.getType().equals("enemy")) {
-                    if (Math.random() < 0.001) {
+                    if (Math.random() < SHOOTCHANCE) {
                         shoot(gameObject, root);
                     }
                 }
@@ -308,15 +319,15 @@ public class GameController {
         }
 
         //if there is no more enemies to kill, we change the level by adding 1, if level is 3, the game over is set
-        if (allGameObjects(root).stream().filter(o ->  (o instanceof  GameObject && o.getType().equals("enemy") )).count() == 0) {
+        if (allGameObjects(root).stream().filter(o ->  (o.getType().equals("enemy") )).count() == 0) {
             if (level == 1) {
-                entry = true;
+                entry = SHOWENTRY;
                 level = 2;
                 stage.setScene(sceneLevel2);
                 stage.show();
             }
             else if (level == 2) {
-                entry = true;
+                entry = SHOWENTRY;
                 level = 3;
                 stage.setScene(sceneLevel3);
                 stage.show();
@@ -390,8 +401,8 @@ public class GameController {
      * @param root
      */
     private void callEnemiesForLevel1(Pane root) {
-        for (int i = 0; i < 5; i++) {
-            GameObject enemy = new GameObject(200 + i*200, 100, 60, 60, "enemy", "easy");
+        for (int i = 0; i < 3; i++) {
+            GameObject enemy = new GameObject(400 + i*200, 100, 60, 60, "enemy", "easy");
             enemy.setFill(easyImagePattern);
             root.getChildren().add(enemy);
         }
@@ -407,13 +418,13 @@ public class GameController {
      * @param root
      */
     private void callEnemiesForLevel2(Pane root) {
-        for (int i = 0; i < 5; i++) {
-            GameObject enemy = new GameObject(200 + i*200, 100, 60, 60, "enemy", "easy");
+        for (int i = 0; i < 3; i++) {
+            GameObject enemy = new GameObject(400 + i*200, 100, 60, 60, "enemy", "easy");
             enemy.setFill(easyImagePattern);
             root.getChildren().add(enemy);
         }
-        for (int i = 0; i < 4; i++) {
-            GameObject enemy = new GameObject(300 + i*200, 175, 60, 60, "enemy", "medium");
+        for (int i = 0; i < 2; i++) {
+            GameObject enemy = new GameObject(500 + i*200, 175, 60, 60, "enemy", "medium");
             enemy.setFill(mediumImagePattern);
             root.getChildren().add(enemy);
         }
@@ -428,18 +439,18 @@ public class GameController {
      * @param root
      */
     private void callEnemiesForLevel3(Pane root) {
-        for (int i = 0; i < 5; i++) {
-            GameObject enemy = new GameObject(200 + i*200, 100, 60, 60, "enemy", "easy");
+        for (int i = 0; i < 3; i++) {
+            GameObject enemy = new GameObject(400 + i*200, 100, 60, 60, "enemy", "easy");
             enemy.setFill(easyImagePattern);
             root.getChildren().add(enemy);
         }
-        for (int i = 0; i < 4; i++) {
-            GameObject enemy = new GameObject(300 + i*200, 175, 60, 60, "enemy", "medium");
+        for (int i = 0; i < 2; i++) {
+            GameObject enemy = new GameObject(500 + i*200, 175, 60, 60, "enemy", "medium");
             enemy.setFill(mediumImagePattern);
             root.getChildren().add(enemy);
         }
-        for (int i = 0; i < 3; i++) {
-            GameObject enemy = new GameObject(400 + i*200, 250, 60, 60, "enemy", "hard");
+        for (int i = 0; i < 1; i++) {
+            GameObject enemy = new GameObject(600 + i*200, 250, 60, 60, "enemy", "hard");
             enemy.setFill(hardImagePattern);
             root.getChildren().add(enemy);
         }
@@ -529,19 +540,19 @@ public class GameController {
         }
 
         void moveLeft() {
-            setTranslateX(getTranslateX() - 8);
+            setTranslateX(getTranslateX() - HORIZONTALSTEP);
         }
 
         void moveRight() {
-            setTranslateX(getTranslateX() + 8);
+            setTranslateX(getTranslateX() + HORIZONTALSTEP);
         }
 
         void moveUp() {
-            setTranslateY(getTranslateY() - 1);
+            setTranslateY(getTranslateY() - VERTICALSTEP);
         }
 
         void moveDown() {
-            setTranslateY(getTranslateY() + 1);
+            setTranslateY(getTranslateY() + VERTICALSTEP);
         }
 
         void translate(int x, int y) {

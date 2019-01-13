@@ -67,7 +67,7 @@ public class RestConsumer {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> entity = new HttpEntity<String>(playerAsString, headers);
-            String url = "http://localhost:8080/register";
+            String url = "http://10.70.189.180:8080/register";
 
             response = restTemplate.postForObject(url, entity, String.class);
             return response;
@@ -106,7 +106,7 @@ public class RestConsumer {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> entity = new HttpEntity<String>(playerAsString, headers);
-            String url = "http://localhost:8080/login";
+            String url = "http://10.70.189.180:8080/login";
 
             response = restTemplate.postForObject(url, entity, String.class);
             return response;
@@ -128,7 +128,7 @@ public class RestConsumer {
     public long getPlayerId(String nickname) {
         long playerId = -1;
         try {
-            String address = "http://localhost:8080/playerid/";
+            String address = "http://10.70.189.180:8080/playerid/";
             address = address.concat(nickname);
             URL url = new URL(address);
 
@@ -166,7 +166,7 @@ public class RestConsumer {
      */
     public void addGame(Game game) {
         try {
-            URL url = new URL("http://localhost:8080/addgame/");
+            URL url = new URL("http://10.70.189.180:8080/addgame/");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setDoInput(true);
@@ -217,7 +217,7 @@ public class RestConsumer {
     public long getNextGameId() {
         long gameId = -1;
         try {
-            String address = "http://localhost:8080/getNextGameId/";
+            String address = "http://10.70.189.180:8080/getNextGameId/";
             URL url = new URL(address);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -254,7 +254,7 @@ public class RestConsumer {
     public List<Score> getScoreBoardAlltheTime() {
         List<Score> scoreBoard = new ArrayList<>();
         try {
-            String address = "http://localhost:8080/scoreboardallthetime/";
+            String address = "http://10.70.189.180:8080/scoreboardallthetime/";
             URL url = new URL(address);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -300,7 +300,7 @@ public class RestConsumer {
     public List<Score> getScoreBoardWeekly() {
         List<Score> scoreBoard = new ArrayList<>();
         try {
-            String address = "http://localhost:8080/scoreboardweekly/";
+            String address = "http://10.70.189.180:8080/scoreboardweekly/";
             URL url = new URL(address);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
