@@ -164,11 +164,17 @@ public class RestConsumer {
 
 
     /**
-     *
+     * This is helper function of addGame.
+     * This function does objectMapper's job since
+     * writing this function is simpler than configuring
+     * objectMapper and also this function looks more clear.
+     * We need to configure objectMapper because objectMapper
+     * does not inherently map LocalDate class to
+     * pattern "yyyy-MM-dd".
      * @param game
-     * @return
+     * @return String mapped
      */
-    String gameMapper(Game game){
+     String gameMapper(Game game){
         String mapped = "{\"gameId\":";
         mapped = mapped.concat(Long.toString(getNextGameId()));
         mapped = mapped.concat(",\"score\":");
@@ -195,7 +201,6 @@ public class RestConsumer {
      * @param game
      */
     public void addGame(Game game) {
-
         try{
             RestTemplate restTemplate = new RestTemplate();
 
