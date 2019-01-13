@@ -1,4 +1,5 @@
 com/example/alienshooterclientside/Utilities/AlertHelper.class
+com/example/alienshooterclientside/Utilities/Constants.class
 com/example/alienshooterclientside/Entities/Game.class
 com/example/alienshooterclientside/AlienshooterClientsideApplication.class
 com/example/alienshooterclientside/Controllers/SignUpFormController.class
