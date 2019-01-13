@@ -268,43 +268,9 @@ public class RestConsumer {
      * @return List<Score> scoreBoardAlltheTime
      */
     public List<Score> getScoreBoardAlltheTime() {
-        List<Score> scoreBoard = new ArrayList<>();
-        try {
-            String address = ADDRESS +
-                    "/scoreboardallthetime/";
-            URL url = new URL(address);
+        String address = ADDRESS + "/scoreboardallthetime/";
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-
-            String line;
-            StringBuffer response = new StringBuffer();
-            while ((line = in.readLine()) != null) {
-                response.append(line);
-
-            }
-            System.out.println(response.toString());
-
-            JSONArray jsonArray = new JSONArray(response.toString());
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                Score score = new Score(i + 1, jsonObject.getString("name"), jsonObject.getLong("score"));
-                scoreBoard.add(score);
-            }
-
-            in.close();
-            connection.disconnect();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return scoreBoard;
+        return getScoreBoard(address);
     }
 
     /**
@@ -315,35 +281,45 @@ public class RestConsumer {
      * @return List<Score> scoreBoardWeekly
      */
     public List<Score> getScoreBoardWeekly() {
-        List<Score> scoreBoard = new ArrayList<>();
-        try {
             String address = ADDRESS +
                     "/scoreboardweekly/";
-            URL url = new URL(address);
+        return getScoreBoard(address);
+    }
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
 
-            String line;
-            StringBuffer response = new StringBuffer();
-            while ((line = in.readLine()) != null) {
-                response.append(line);
+    /**
+     * This is helper function of getScoreBoardAlltheTime
+     * and getScoreBoardWeekly functions.
+     * @param address
+     * @return List<Score> scoreBoard
+     */
+    public List<Score> getScoreBoard(String address) {
+        List<Score> scoreBoard = new ArrayList<>();
+        try {
+        URL url = new URL(address);
 
-            }
-            System.out.println(response.toString());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(connection.getInputStream()));
 
-            JSONArray jsonArray = new JSONArray(response.toString());
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                Score score = new Score(i + 1,jsonObject.getString("name"), jsonObject.getLong("score"));
-                scoreBoard.add(score);
-            }
+        String line;
+        StringBuffer response = new StringBuffer();
+        while ((line = in.readLine()) != null) {
+            response.append(line);
 
-            in.close();
-            connection.disconnect();
+        }
+        System.out.println(response.toString());
 
+        JSONArray jsonArray = new JSONArray(response.toString());
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+            Score score = new Score(i + 1,jsonObject.getString("name"), jsonObject.getLong("score"));
+            scoreBoard.add(score);
+        }
+
+        in.close();
+        connection.disconnect();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
