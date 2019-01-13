@@ -44,6 +44,8 @@ import java.util.List;
  * For some debugging purposes we get all the games recorded in the databese.
  */
 public class RestConsumer {
+    public static final String ADDRESS = "http://10.70.189.180:8080";
+
     public RestConsumer() {}
 
     /**
@@ -72,7 +74,7 @@ public class RestConsumer {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> entity = new HttpEntity<String>(playerAsString, headers);
-            String url = "http://10.70.189.180:8080/register";
+            String url = ADDRESS + "/register";
 
             response = restTemplate.postForObject(url, entity, String.class);
             return response;
@@ -111,7 +113,7 @@ public class RestConsumer {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> entity = new HttpEntity<String>(playerAsString, headers);
-            String url = "http://10.70.189.180:8080/login";
+            String url = ADDRESS + "/login";
 
             response = restTemplate.postForObject(url, entity, String.class);
             return response;
@@ -133,7 +135,7 @@ public class RestConsumer {
     public long getPlayerId(String nickname) {
         long playerId = -1;
         try {
-            String address = "http://10.70.189.180:8080/playerid/";
+            String address =  ADDRESS + "/playerid/";
             address = address.concat(nickname);
             URL url = new URL(address);
 
@@ -210,7 +212,8 @@ public class RestConsumer {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> entity = new HttpEntity<String>(gameAsString, headers);
-            String url = "http://10.70.189.180:8080/addgame/";
+            String url = ADDRESS +
+                    "/addgame/";
             restTemplate.postForObject(url, entity, String.class);
         }
         catch (HttpClientErrorException e) {
@@ -229,7 +232,8 @@ public class RestConsumer {
     public long getNextGameId() {
         long gameId = -1;
         try {
-            String address = "http://10.70.189.180:8080/getNextGameId/";
+            String address = ADDRESS +
+                    "/getNextGameId/";
             URL url = new URL(address);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -266,7 +270,8 @@ public class RestConsumer {
     public List<Score> getScoreBoardAlltheTime() {
         List<Score> scoreBoard = new ArrayList<>();
         try {
-            String address = "http://10.70.189.180:8080/scoreboardallthetime/";
+            String address = ADDRESS +
+                    "/scoreboardallthetime/";
             URL url = new URL(address);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -312,7 +317,8 @@ public class RestConsumer {
     public List<Score> getScoreBoardWeekly() {
         List<Score> scoreBoard = new ArrayList<>();
         try {
-            String address = "http://10.70.189.180:8080/scoreboardweekly/";
+            String address = ADDRESS +
+                    "/scoreboardweekly/";
             URL url = new URL(address);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
