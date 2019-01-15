@@ -44,7 +44,7 @@ import java.util.List;
  * For some debugging purposes we get all the games recorded in the databese.
  */
 public class RestConsumer {
-    public static final String ADDRESS = "http://10.70.189.180:8080";
+    public static final String ADDRESS = "http://localhost:8080";
 
     public RestConsumer() {}
 

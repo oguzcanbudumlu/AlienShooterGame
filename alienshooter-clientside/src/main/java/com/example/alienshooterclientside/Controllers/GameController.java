@@ -1,6 +1,12 @@
 package com.example.alienshooterclientside.Controllers;
 
+import com.example.alienshooterclientside.Entities.ClientMessage;
+import com.example.alienshooterclientside.Entities.ServerMessage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,7 +20,12 @@ import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import java.io.IOException;
+
+import java.io.*;
+import java.net.Socket;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -57,36 +68,48 @@ import java.util.ArrayList;
  */
 public class GameController {
     public static double TIMESTEP = 0.01;
-    public static double TOTALTIME = 1;
-    public static boolean DONTSHOWENTRY = false;
-    public static boolean SHOWENTRY = true;
+    public static double TOTALTIME = 0.1;
+    public static boolean DISABLED = false;
+    public static boolean ENABLED = true;
     public static double SHOOTCHANCE = 0.0007;
     public static double HARD = 0.85;
     public static double MEDIUM = 0.65;
     public static int SCOREFACTOR = 20;
     public static int HORIZONTALSTEP = 11;
     public static double VERTICALSTEP = 0.5;
+    public static int PLAYER1 = 1;
+    public static int PLAYER2 = 2;
+    public static int CONTINUE = 3;
+    public static int FINISH = 4;
+    public static boolean WON = true;
+    public static boolean LOST = false;
 
     private Stage stage;
 
     private Scene sceneLevel1;
     private Scene sceneLevel2;
     private Scene sceneLevel3;
+    private Scene sceneLevel4;
+    private Scene sceneWon;
+    private Scene sceneLost;
 
     private Pane root1 = new Pane();
     private Pane root2 = new Pane();
     private Pane root3 = new Pane();
+    private Pane root4 = new Pane();
 
     private  double time = 1;
 
     private boolean entry = true;
     private boolean gameOver = false;
+    private boolean multiplayer = false;
 
     AnimationTimer timer;
 
     private int level = 1;
 
     private GameObject player = new GameObject(600, 620, 80, 80, "player", Color.BLUE);
+    private GameObject player2 = new GameObject(600, 620, 80, 80, "player2", Color.BLUE);
     private GameObject line = new GameObject(0, 75, 1200, 2, "line", Color.WHITE);
 
     private Label labelScoreText = new Label("Score : ");
@@ -97,14 +120,32 @@ public class GameController {
     private Label labelHP = new Label("1000");
     private int healthPoint = 1000;
 
+    private Label enemyHPText = new Label("Enemy Health : ");
+    private Label enemyHP = new Label("1000");
+
     ImagePattern playerImagePattern = new ImagePattern(new Image("/Assets/player.png"));
     ImagePattern playerBulletImagePattern = new ImagePattern(new Image("/Assets/playerBullet.png"));
+    ImagePattern playerImagePattern2 = new ImagePattern(new Image("/Assets/player2.png"));
+    ImagePattern playerBulletImagePattern2 = new ImagePattern(new Image("/Assets/playerBullet2.png"));
     ImagePattern easyImagePattern = new ImagePattern(new Image("/Assets/easy.png"));
     ImagePattern easyBulletImagePattern = new ImagePattern(new Image("/Assets/easyBullet.png"));
     ImagePattern mediumImagePattern = new ImagePattern(new Image("/Assets/medium.png"));
     ImagePattern mediumBulletImagePattern = new ImagePattern(new Image("/Assets/mediumBullet.png"));
     ImagePattern hardImagePattern = new ImagePattern(new Image("/Assets/hard.png"));
     ImagePattern hardBulletImagePattern = new ImagePattern(new Image("/Assets/hardBullet.png"));
+
+    ////////////////////////////////////////////////////////////////////
+    ObjectMapper objectMapper = new ObjectMapper();
+    ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+    Socket socket;
+    DataOutputStream toServer;
+    DataInputStream fromServer;
+    ServerMessage serverMessage = new ServerMessage(0, 0, 0, false, false);
+    ClientMessage clientMessage = new ClientMessage(0, false, false, 0);
+    boolean playerShot = false;
+    boolean player2Shot = false;
+    boolean enemyDamaged = false;
+    ////////////////////////////////////////////////////////////////////
 
     public GameController(Stage stage) throws IOException {
         //stage is set to the current stage coming from main menu
@@ -118,6 +159,12 @@ public class GameController {
         sceneLevel2 = new Scene(parent, 1200, 720);
         parent = FXMLLoader.load(getClass().getResource("/FXMLFiles/level3Entry.fxml"));
         sceneLevel3 = new Scene(parent, 1200, 720);
+        parent = FXMLLoader.load(getClass().getResource("/FXMLFiles/level4Entry.fxml"));
+        sceneLevel4 = new Scene(parent, 1200, 720);
+        parent = FXMLLoader.load(getClass().getResource("/FXMLFiles/youWon.fxml"));
+        sceneWon = new Scene(parent, 1200, 720);
+        parent = FXMLLoader.load(getClass().getResource("/FXMLFiles/youLost.fxml"));
+        sceneLost = new Scene(parent, 1200, 720);
 
         //background image of the level is retrieved
         ImageView imageView = new ImageView(new Image("/Assets/background_final.jpg"));
@@ -128,14 +175,17 @@ public class GameController {
         root1.setBackground(new Background(backgroundImage));
         root2.setBackground(new Background(backgroundImage));
         root3.setBackground(new Background(backgroundImage));
+        root4.setBackground(new Background(backgroundImage));
 
         //scene size is set
         root1.setPrefSize(1200, 720);
         root2.setPrefSize(1200, 720);
         root3.setPrefSize(1200, 720);
+        root4.setPrefSize(1200, 720);
 
         //players image is filled with a pattern
         player.setFill(playerImagePattern);
+        player2.setFill(playerImagePattern2);
 
         //Score labels adjusments are done below
         labelScore.setLayoutX(250);
@@ -157,6 +207,15 @@ public class GameController {
         labelHPText.setTextFill(Color.WHITE);
         labelHPText.setFont(Font.font("Cousine Bold", 32));
 
+        enemyHP.setLayoutX(585);
+        enemyHP.setLayoutY(15);
+        enemyHP.setTextFill(Color.WHITE);
+        enemyHP.setFont(Font.font("Cousine Bold", 32));
+        enemyHPText.setLayoutX(300);
+        enemyHPText.setLayoutY(15);
+        enemyHPText.setTextFill(Color.WHITE);
+        enemyHPText.setFont(Font.font("Cousine Bold", 32));
+
     }
 
     /**
@@ -171,9 +230,14 @@ public class GameController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                update();
+                try {
+                    update();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 if (gameOver) {
                     timer.stop();
+                    System.out.println("Timer Stopped.");
                     GameOverController gameOverController = new GameOverController();
                     gameOverController.start(stage, healthPoint + score);
                 }
@@ -196,12 +260,12 @@ public class GameController {
      *
      * if there is still a enemy to kill in the scene we call updateLevel
      */
-    private void update() {
+    private void update() throws IOException {
         if (level == 1) {
             if (entry) {
                 time -= TIMESTEP;
                 if (time < 0) {
-                    entry = DONTSHOWENTRY;
+                    entry = DISABLED;
                     time = TOTALTIME;
                     getReadyForLevel1();
                 }
@@ -214,7 +278,7 @@ public class GameController {
             if (entry) {
                 time -= TIMESTEP;
                 if (time < 0) {
-                    entry = DONTSHOWENTRY;
+                    entry = DISABLED;
                     time = TOTALTIME;
                     getReadyForLevel2();
                 }
@@ -223,11 +287,11 @@ public class GameController {
                 updateLevel(root2);
             }
         }
-        else {
+        else if (level == 3) {
             if (entry) {
                 time -= TIMESTEP;
                 if (time < 0) {
-                    entry = DONTSHOWENTRY;
+                    entry = DISABLED;
                     time = TOTALTIME;
                     getReadyForLevel3();
                 }
@@ -236,6 +300,148 @@ public class GameController {
                 updateLevel(root3);
             }
         }
+        else {
+            if (multiplayer == ENABLED) {
+                updateMultiplayerLevel();
+            }
+            if (entry) {
+                time -= TIMESTEP;
+                if (time < 0) {
+                    entry = DISABLED;
+                    gameOver = true;
+                }
+            }
+        }
+
+    }
+
+    private void connectToServer() {
+        try {
+            // Create a socket to connect to the server
+            Socket socket = new Socket("127.0.0.1", 8000);
+            fromServer = new DataInputStream(socket.getInputStream());
+            toServer = new DataOutputStream(socket.getOutputStream());
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        new Thread(() -> {
+            try {
+                System.out.println("in the thread");
+                receiveMessage();
+
+                System.out.println("server message received");
+                System.out.println("Server Message Player : " + serverMessage.getStatus() );
+
+                multiplayer = ENABLED;
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        getReadyForLevel4();
+                    }
+                });
+
+                while (true) {
+                    receiveMessage();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+    }
+
+    private void receiveMessage() throws IOException {
+        String response = fromServer.readUTF();
+        String message = new String(response.getBytes(), "UTF-8");
+        serverMessage = objectMapper.readValue(message, ServerMessage.class);
+        if (serverMessage.getShot()) {
+            player2Shot = true;
+            System.out.println("player2shot set to true");
+        }
+    }
+
+    private void updateMultiplayerLevel() throws IOException {
+        if (serverMessage.getStatus() == FINISH) {
+            enemyHP.setText("0");
+            entry = ENABLED;
+            multiplayer = DISABLED;
+            if (serverMessage.getWon() == WON) {
+                score += 1000;
+                System.out.println("You won.");
+                stage.setScene(sceneWon);
+                stage.show();
+            }
+            else {
+                System.out.println("You lost.");
+                stage.setScene(sceneLost);
+                stage.show();
+            }
+            return;
+        }
+        allGameObjects(root4).forEach(gameObject -> {
+            if (gameObject.getType().equals("enemybullet")) {
+                gameObject.moveDown();
+            }
+            else if (gameObject.getType().equals("playerbullet")) {
+                gameObject.moveUp();
+                allGameObjects(root4).stream().filter(o -> o.getType().equals("enemy")).forEach(enemy -> {
+                    //check if the player bullet intersects with the player if so score is updated
+                    if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                        gameObject.kill();
+                        enemyDamaged = true;
+                    }
+                });
+
+                //if player bullet is intersected with the line it is set to be deleted.
+                allGameObjects(root4).stream().filter(o -> o.getType().equals("line")).forEach(enemy -> {
+                    if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                        gameObject.kill();
+                    }
+                });
+            }
+            else if (gameObject.getType().equals("player2bullet")) {
+                gameObject.moveUp();
+                allGameObjects(root4).stream().filter(o -> o.getType().equals("enemy")).forEach(enemy -> {
+                    //check if the player bullet intersects with the player if so score is updated
+                    if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                        gameObject.kill();
+                    }
+                });
+
+                //if player bullet is intersected with the line it is set to be deleted.
+                allGameObjects(root4).stream().filter(o -> o.getType().equals("line")).forEach(enemy -> {
+                    if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                        gameObject.kill();
+                    }
+                });
+            }
+        });
+        for (GameObject gameObject : allGameObjects(root4)) {
+            if (gameObject.isDead()) root4.getChildren().remove(gameObject);
+        }
+
+        player2.setTranslateX((double) serverMessage.getPosition());
+        if (player2Shot) {
+            shoot(player2, root4);
+            player2Shot = false;
+        }
+
+        if (player2Shot) {
+            System.out.println("player shot");
+        }
+        enemyHP.setText(serverMessage.getHealth() + "");
+        clientMessage = new ClientMessage(0, playerShot, enemyDamaged, (int) player.getTranslateX());
+        transmitMessage();
+        playerShot = false;
+        enemyDamaged = false;
+    }
+
+    private void transmitMessage() throws IOException {
+        String message = objectWriter.writeValueAsString(clientMessage);
+        new DataOutputStream(toServer).writeUTF(message);
     }
 
     /**
@@ -256,59 +462,56 @@ public class GameController {
      */
     private void updateLevel(Pane root) {
         allGameObjects(root).forEach(gameObject -> {
-            if (gameObject instanceof GameObject) {
+            //if the bullet is coming from enemy bullet goes down.
+            if (gameObject.getType().equals("enemybullet")) {
+                gameObject.moveDown();
 
-                //if the bullet is coming from enemy bullet goes down.
-                if (gameObject.getType().equals("enemybullet")) {
-                    gameObject.moveDown();
+                //if the enemy bullet intersects with the player the HP decreases
+                //and the HP on the scene is updated also the enemybullet is set to be deleted.
+                if (gameObject.getBoundsInParent().intersects(player.getBoundsInParent())) {
+                    healthPoint -= 10 * level;
+                    labelHP.setText(healthPoint + "");
 
-                    //if the enemy bullet intersects with the player the HP decreases
-                    //and the HP on the scene is updated also the enemybullet is set to be deleted.
-                    if (gameObject.getBoundsInParent().intersects(player.getBoundsInParent())) {
-                        healthPoint -= 10 * level;
-                        labelHP.setText(healthPoint + "");
+                    if (healthPoint < 0) {
+                        player.kill();
+                        gameOver = true;
+                    }
+                    gameObject.kill();
+                }
+            }
+            //the player bullet goes up
+            else if (gameObject.getType().equals("playerbullet")) {
+                gameObject.moveUp();
+                allGameObjects(root).stream().filter(o -> o.getType().equals("enemy")).forEach(enemy -> {
 
-                        if (healthPoint < 0) {
-                            player.kill();
-                            gameOver = true;
+                    //check if the player bullet intersects with the player if so score is updated
+                    if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                        score += SCOREFACTOR * level;
+                        labelScore.setText(score + "");
+
+                        //depending on enemy type I set some randomization to kill the enemy
+                        if (enemy.getDifficulty().equals("hard")) {
+                            if (Math.random() > HARD) enemy.kill();
                         }
+                        else if (enemy.getDifficulty().equals("medium")) {
+                            if (Math.random() > MEDIUM) enemy.kill();
+                        }
+                        else enemy.kill();
                         gameObject.kill();
                     }
-                }
-                //the player bullet goes up
-                else if (gameObject.getType().equals("playerbullet")) {
-                    gameObject.moveUp();
-                    allGameObjects(root).stream().filter(o -> o.getType().equals("enemy")).forEach(enemy -> {
+                });
 
-                        //check if the player bullet intersects with the player if so score is updated
-                        if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
-                            score += SCOREFACTOR * level;
-                            labelScore.setText(score + "");
-
-                            //depending on enemy type I set some randomization to kill the enemy
-                            if (enemy.getDifficulty().equals("hard")) {
-                                if (Math.random() > HARD) enemy.kill();
-                            }
-                            else if (enemy.getDifficulty().equals("medium")) {
-                                if (Math.random() > MEDIUM) enemy.kill();
-                            }
-                            else enemy.kill();
-                            gameObject.kill();
-                        }
-                    });
-
-                    //if player bullet is intersected with the line it is set to be deleted.
-                    allGameObjects(root).stream().filter(o -> o.getType().equals("line")).forEach(enemy -> {
-                        if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
-                            gameObject.kill();
-                        }
-                    });
-                }
-                //if gameobject is enemy it shoots based on a random number.
-                else if (gameObject.getType().equals("enemy")) {
-                    if (Math.random() < SHOOTCHANCE) {
-                        shoot(gameObject, root);
+                //if player bullet is intersected with the line it is set to be deleted.
+                allGameObjects(root).stream().filter(o -> o.getType().equals("line")).forEach(enemy -> {
+                    if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                        gameObject.kill();
                     }
+                });
+            }
+            //if gameobject is enemy it shoots based on a random number.
+            else if (gameObject.getType().equals("enemy")) {
+                if (Math.random() < SHOOTCHANCE) {
+                    shoot(gameObject, root);
                 }
             }
         });
@@ -321,21 +524,40 @@ public class GameController {
         //if there is no more enemies to kill, we change the level by adding 1, if level is 3, the game over is set
         if (allGameObjects(root).stream().filter(o ->  (o.getType().equals("enemy") )).count() == 0) {
             if (level == 1) {
-                entry = SHOWENTRY;
+                entry = ENABLED;
                 level = 2;
                 stage.setScene(sceneLevel2);
                 stage.show();
             }
             else if (level == 2) {
-                entry = SHOWENTRY;
+                entry = ENABLED;
                 level = 3;
                 stage.setScene(sceneLevel3);
                 stage.show();
             }
-            else {
-                gameOver = true;
+            else if (level == 3) {
+                //gameOver = true;
+                level = 4;
+                stage.setScene(sceneLevel4);
+                stage.show();
+                connectToServer();
+                //
             }
         }
+    }
+
+    private void getReadyForLevel4() {
+        if (serverMessage.getStatus() == PLAYER1) {
+            player.translate(500, 620);
+            player2.translate(700, 620);
+        }
+        else if (serverMessage.getStatus() == PLAYER2) {
+            player.translate(700, 620);
+            player2.translate(500, 620);
+        }
+        callEnemiesForLevel4(root4);
+        stage.setScene(createSceneForLevel(root4));
+        stage.show();
     }
 
     //scene is prepared for the level 3
@@ -374,6 +596,12 @@ public class GameController {
      */
     private Scene createSceneForLevel(Pane root) {
         root.getChildren().addAll(player, line, labelScore, labelScoreText, labelHP, labelHPText);
+        if (multiplayer == ENABLED) {
+            root.getChildren().add(player2);
+            labelScoreText.setLayoutX(50);
+            labelScore.setLayoutX(200);
+            root.getChildren().addAll(enemyHP, enemyHPText);
+        }
         Scene scene = new Scene(root);
 
         scene.setOnKeyPressed(e -> {
@@ -401,8 +629,8 @@ public class GameController {
      * @param root
      */
     private void callEnemiesForLevel1(Pane root) {
-        for (int i = 0; i < 3; i++) {
-            GameObject enemy = new GameObject(400 + i*200, 100, 60, 60, "enemy", "easy");
+        for (int i = 0; i < 1; i++) {
+            GameObject enemy = new GameObject(600 + i*200, 100, 60, 60, "enemy", "easy");
             enemy.setFill(easyImagePattern);
             root.getChildren().add(enemy);
         }
@@ -418,15 +646,15 @@ public class GameController {
      * @param root
      */
     private void callEnemiesForLevel2(Pane root) {
-        for (int i = 0; i < 3; i++) {
-            GameObject enemy = new GameObject(400 + i*200, 100, 60, 60, "enemy", "easy");
+        for (int i = 0; i < 1; i++) {
+            GameObject enemy = new GameObject(600 + i*200, 100, 60, 60, "enemy", "easy");
             enemy.setFill(easyImagePattern);
             root.getChildren().add(enemy);
         }
-        for (int i = 0; i < 2; i++) {
-            GameObject enemy = new GameObject(500 + i*200, 175, 60, 60, "enemy", "medium");
+        for (int i = 0; i < 1; i++) {
+            GameObject enemy = new GameObject(600 + i*200, 175, 60, 60, "enemy", "medium");
             enemy.setFill(mediumImagePattern);
-            root.getChildren().add(enemy);
+            //root.getChildren().add(enemy);
         }
     }
 
@@ -439,21 +667,27 @@ public class GameController {
      * @param root
      */
     private void callEnemiesForLevel3(Pane root) {
-        for (int i = 0; i < 3; i++) {
-            GameObject enemy = new GameObject(400 + i*200, 100, 60, 60, "enemy", "easy");
+        for (int i = 0; i < 1; i++) {
+            GameObject enemy = new GameObject(600 + i*200, 100, 60, 60, "enemy", "easy");
             enemy.setFill(easyImagePattern);
             root.getChildren().add(enemy);
         }
-        for (int i = 0; i < 2; i++) {
-            GameObject enemy = new GameObject(500 + i*200, 175, 60, 60, "enemy", "medium");
+        for (int i = 0; i < 1; i++) {
+            GameObject enemy = new GameObject(600 + i*200, 175, 60, 60, "enemy", "medium");
             enemy.setFill(mediumImagePattern);
-            root.getChildren().add(enemy);
+            //root.getChildren().add(enemy);
         }
         for (int i = 0; i < 1; i++) {
             GameObject enemy = new GameObject(600 + i*200, 250, 60, 60, "enemy", "hard");
             enemy.setFill(hardImagePattern);
-            root.getChildren().add(enemy);
+            //root.getChildren().add(enemy);
         }
+    }
+
+    private void callEnemiesForLevel4(Pane root) {
+        GameObject enemy = new GameObject(550, 150, 160, 160, "enemy", "boss");
+        enemy.setFill(hardImagePattern);
+        root.getChildren().add(enemy);
     }
 
     /**
@@ -469,7 +703,13 @@ public class GameController {
     private void shoot(GameObject who, Pane root) {
         GameObject s = new GameObject((int) who.getTranslateX() + (int) (who.getWidth() / 2), (int) who.getTranslateY() +
                 (int) (who.getHeight() / 2), 15, 35, who.getType() + "bullet", Color.BLACK);
-        if (who == player) s.setFill(playerBulletImagePattern);
+        if (who == player) {
+            s.setFill(playerBulletImagePattern);
+            if (multiplayer) {
+                playerShot = true;
+            }
+        }
+        else if (who == player2) s.setFill(playerBulletImagePattern2);
         else {
             if (who.getDifficulty().equals("hard"))  s.setFill(hardBulletImagePattern);
             else if (who.getDifficulty().equals("medium"))  s.setFill(mediumBulletImagePattern);
@@ -548,7 +788,7 @@ public class GameController {
         }
 
         void moveUp() {
-            setTranslateY(getTranslateY() - VERTICALSTEP);
+            setTranslateY(getTranslateY() - VERTICALSTEP * 2);
         }
 
         void moveDown() {

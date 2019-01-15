@@ -13,7 +13,7 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    public int generateId = 0;
+    //public int generateId = 0;
 
     /**
      * Returns all players in the database
@@ -42,7 +42,7 @@ public class PlayerService {
     public void addPlayer(Player player) {
         //players.add(player);
         if (player == null) return;
-        player.setPlayerId(generateId++);
+        player.setPlayerId(getNextId());
         player.setPassword(Integer.toString(player.getPassword().hashCode()));
         playerRepository.save(player);
     }
@@ -118,7 +118,7 @@ public class PlayerService {
     public String registerPlayer(Player player) {
         Player temp = playerRepository.findByNickname(player.getNickname());
         if (temp == null) {
-            player.setPlayerId(generateId++);
+            player.setPlayerId(getNextId());
             player.setPassword(Integer.toString(player.getPassword().hashCode()));
             playerRepository.save(player);
             return "Player Saved.";
