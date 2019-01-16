@@ -1,10 +1,10 @@
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/player/PlayerService.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/player/PlayerController.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/score/Score.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/game/GameRepository.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/game/GameService.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/player/PlayerRepository.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/player/Player.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/game/GameController.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/AlienShooterServersideApplication.java
-/home/can/Desktop/gameProject (4th copy)/project/alien-shooter-serverside/src/main/java/alienshooterserver/game/Game.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/player/PlayerService.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/AlienShooterServersideApplication.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/player/PlayerController.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/game/GameService.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/game/GameController.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/score/Score.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/game/GameRepository.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/game/Game.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/player/Player.java
+/home/can/Desktop/project4/project/alien-shooter-serverside/src/main/java/alienshooterserver/player/PlayerRepository.java

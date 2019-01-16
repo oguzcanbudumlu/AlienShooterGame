@@ -1,13 +1,15 @@
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/AlienshooterClientsideApplication.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/SignInFormController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/RestConsumer.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Score.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/GameOverController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/AlertHelper.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/Constants.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/SignUpFormController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/GameController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Player.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Game.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/MainMenuController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/Player.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/AlienshooterClientsideApplication.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/MainMenuController.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/utilities/Constants.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/GameController.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/ClientMessage.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/utilities/RestConsumer.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/ServerMessage.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/SignUpFormController.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/Game.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/SignInFormController.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/utilities/AlertHelper.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/Score.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/GameOverController.java
+/home/can/Desktop/project4/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/LeaderboardsTablesController.java
