@@ -7,6 +7,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+
+/**
+ * For two matched players, one
+ * session is created. Data exchange between
+ * players is done by Session's. Of course,
+ * Server acts a bridge during this exchange
+ * process.
+ */
 public class Session implements Runnable {
     private Socket player1;
     private Socket player2;
@@ -24,13 +32,14 @@ public class Session implements Runnable {
 
     private int health = 1000;
 
+    // initial positions for players
     private int posPlayer1 = 500;
     private int posPlayer2 = 700;
 
     private int shotCountPlayer1 = 0;
     private int shotCountPlayer2 = 0;
 
-    Gson gson = new Gson();
+    Gson gson = new Gson(); // to convert ClientMessage and ServerMessage to String format or vice versa
 
     public Session(Socket player1, Socket player2) throws IOException {
         this.player1 = player1;
