@@ -1,8 +1,6 @@
 package com.company.Entities;
 
 import com.google.gson.Gson;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.ObjectWriter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -32,8 +30,6 @@ public class Session implements Runnable {
     private int shotCountPlayer1 = 0;
     private int shotCountPlayer2 = 0;
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
     Gson gson = new Gson();
 
     public Session(Socket player1, Socket player2) throws IOException {

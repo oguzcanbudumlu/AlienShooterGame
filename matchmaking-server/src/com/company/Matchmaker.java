@@ -2,7 +2,6 @@ package com.company;
 
 import com.company.Entities.ServerMessage;
 import com.company.Entities.Session;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 
@@ -11,11 +10,22 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+
+/**
+ * In Matchmaker, players waiting for
+ * 4th level are matched. One socket is
+ * opened for each pair. Once a player
+ * comes to 4th level, a socket is opened
+ * for a game session and another player
+ * finishing 3th level in game joins this
+ * session via same socket. After that,
+ * one thread is created to create another
+ * two threads.
+ */
 public class Matchmaker {
 
-    public static void main(String[] args) throws IOException, JsonMappingException {
+    public static void main(String[] args) throws IOException {
         final int PORT = 8000;
-        int sessionNo = 1;
         ServerMessage serverMessage;
 
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
