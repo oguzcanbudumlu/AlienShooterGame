@@ -79,6 +79,13 @@ with response
 
 In order to run back-end side of the game, the WAR file is created to be deployed to the server.
 
+WAR file of back end server can be found in executables folder:
+
+```
+cd executables
+java -jar alien-shooter-serverside-0.0.1-SNAPSHOT.war
+```
+
 
 ### Phase 3 - Front End Development 
 
@@ -86,17 +93,19 @@ In order to run back-end side of the game, the WAR file is created to be deploye
 In this phase, graphical user interface is developed. After executing server developed in phase 2 once, Alien Shooter Game can be played via GUI. It is provided how to play game in *HowtoPlayAlienShooter.pdf* file.
 
 
-Commands to be executed to play the game are: (assumed that you are in project folder)
+JAR file of client side can be found in executables folder:
 
 
 ```
-cd alienshooter-clientside/target/
+cd executables
 java -jar alienshooter-clientside-0.0.1-SNAPSHOT.jar
 ```
 
 ### Phase 4 - Concurrency 
 
-*The phase is about to be done.*
+In this phase, we created another server for multiplayer game. After players completed first 3 level of the game, they connect to this server and play the game in multiplayer mode. This server just provides communication between players and acts a referee, which determines who has won the game.
+
+WAR file of this server can be found in executables folder to be deployed to the server.
 
 
 ### Technologies and Tools that are used
