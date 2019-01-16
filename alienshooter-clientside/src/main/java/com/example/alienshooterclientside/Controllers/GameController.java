@@ -2,7 +2,6 @@ package com.example.alienshooterclientside.Controllers;
 
 import com.example.alienshooterclientside.Entities.ClientMessage;
 import com.example.alienshooterclientside.Entities.ServerMessage;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import javafx.animation.AnimationTimer;
@@ -23,10 +22,11 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.*;
 import java.net.Socket;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import static com.example.alienshooterclientside.Utilities.Constants.*;
+
+
 
 /**
  * This class is used to control the game when the player starts
@@ -67,22 +67,6 @@ import java.util.ArrayList;
  * there are 3 types of enemies and 3 types of bullet for enemies.
  */
 public class GameController {
-    public static double TIMESTEP = 0.01;
-    public static double TOTALTIME = 0.1;
-    public static boolean DISABLED = false;
-    public static boolean ENABLED = true;
-    public static double SHOOTCHANCE = 0.0007;
-    public static double HARD = 0.85;
-    public static double MEDIUM = 0.65;
-    public static int SCOREFACTOR = 20;
-    public static int HORIZONTALSTEP = 11;
-    public static double VERTICALSTEP = 0.5;
-    public static int PLAYER1 = 1;
-    public static int PLAYER2 = 2;
-    public static int CONTINUE = 3;
-    public static int FINISH = 4;
-    public static boolean WON = true;
-    public static boolean LOST = false;
 
     private Stage stage;
 
@@ -263,10 +247,10 @@ public class GameController {
     private void update() throws IOException {
         if (level == 1) {
             if (entry) {
-                time -= TIMESTEP;
+                time -= TIME_STEP;
                 if (time < 0) {
                     entry = DISABLED;
-                    time = TOTALTIME;
+                    time = TOTAL_TIME;
                     getReadyForLevel1();
                 }
             }
@@ -276,10 +260,10 @@ public class GameController {
         }
         else if (level == 2) {
             if (entry) {
-                time -= TIMESTEP;
+                time -= TIME_STEP;
                 if (time < 0) {
                     entry = DISABLED;
-                    time = TOTALTIME;
+                    time = TOTAL_TIME;
                     getReadyForLevel2();
                 }
             }
@@ -289,10 +273,10 @@ public class GameController {
         }
         else if (level == 3) {
             if (entry) {
-                time -= TIMESTEP;
+                time -= TIME_STEP;
                 if (time < 0) {
                     entry = DISABLED;
-                    time = TOTALTIME;
+                    time = TOTAL_TIME;
                     getReadyForLevel3();
                 }
             }
@@ -305,7 +289,7 @@ public class GameController {
                 updateMultiplayerLevel();
             }
             if (entry) {
-                time -= TIMESTEP;
+                time -= TIME_STEP;
                 if (time < 0) {
                     entry = DISABLED;
                     gameOver = true;
@@ -486,7 +470,7 @@ public class GameController {
 
                     //check if the player bullet intersects with the player if so score is updated
                     if (gameObject.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
-                        score += SCOREFACTOR * level;
+                        score += SCORE_FACTOR * level;
                         labelScore.setText(score + "");
 
                         //depending on enemy type I set some randomization to kill the enemy
@@ -510,7 +494,7 @@ public class GameController {
             }
             //if gameobject is enemy it shoots based on a random number.
             else if (gameObject.getType().equals("enemy")) {
-                if (Math.random() < SHOOTCHANCE) {
+                if (Math.random() < SHOOT_CHANCE) {
                     shoot(gameObject, root);
                 }
             }
@@ -536,12 +520,10 @@ public class GameController {
                 stage.show();
             }
             else if (level == 3) {
-                //gameOver = true;
                 level = 4;
                 stage.setScene(sceneLevel4);
                 stage.show();
                 connectToServer();
-                //
             }
         }
     }
@@ -620,70 +602,88 @@ public class GameController {
         return scene;
     }
 
+
     /**
-     * it takes a pane as a parameter and this function fill the pane
-     * with the enemies for level1
-     *
-     * 5 easy enemies
-     *
+     * this is helper function for level functions callEnemiesForLevelX.
      * @param root
      */
-    private void callEnemiesForLevel1(Pane root) {
-        for (int i = 0; i < 1; i++) {
-            GameObject enemy = new GameObject(600 + i*200, 100, 60, 60, "enemy", "easy");
+    private void callEasyEnemies(Pane root) {
+        for (int i = 0; i < EASY_ENEMY_COUNT; i++) {
+            GameObject enemy = new GameObject(REF_POS_OF_EASY_ENEMY + i*200, 100, 60, 60, "enemy", "easy");
             enemy.setFill(easyImagePattern);
             root.getChildren().add(enemy);
         }
     }
 
+    /**
+     * this is helper function for level functions callEnemiesForLevelX.
+     * @param root
+     */
+    private void callMediumEnemies(Pane root) {
+        for (int i = 0; i < MEDIUM_ENEMY_COUNT; i++) {
+            GameObject enemy = new GameObject(REF_POS_OF_MEDIUM_ENEMY + i*200, 175, 60, 60, "enemy", "medium");
+            enemy.setFill(mediumImagePattern);
+            root.getChildren().add(enemy);
+        }
+    }
+
+    /**
+     * this is helper function for level functions callEnemiesForLevelX.
+     * @param root
+     */
+    private void callDifficultEnemies(Pane root) {
+        for (int i = 0; i < DIFFICULT_ENEMY_COUNT; i++) {
+            GameObject enemy = new GameObject(REF_POS_OF_DIFFICULT_ENEMY + i*200, 250, 60, 60, "enemy", "hard");
+            enemy.setFill(hardImagePattern);
+            root.getChildren().add(enemy);
+        }
+    }
+
+    /**
+     * it takes a pane as a parameter and this function fill the pane
+     * with the enemies for level1
+     *
+     * 3 easy enemies in default mode
+     *
+     * @param root
+     */
+    private void callEnemiesForLevel1(Pane root) {
+        callEasyEnemies(root);
+    }
 
     /**
      * it takes a pane as a parameter and this function fills the pane
      * with the enemies for level 2
      *
-     * 5 easy 4 medium enemies
+     * 3 easy 2 medium enemies in default mode
      *
      * @param root
      */
     private void callEnemiesForLevel2(Pane root) {
-        for (int i = 0; i < 1; i++) {
-            GameObject enemy = new GameObject(600 + i*200, 100, 60, 60, "enemy", "easy");
-            enemy.setFill(easyImagePattern);
-            root.getChildren().add(enemy);
-        }
-        for (int i = 0; i < 1; i++) {
-            GameObject enemy = new GameObject(600 + i*200, 175, 60, 60, "enemy", "medium");
-            enemy.setFill(mediumImagePattern);
-            //root.getChildren().add(enemy);
-        }
+        callEasyEnemies(root);
+        callMediumEnemies(root);
     }
 
     /**
      * this function takes a pane as a parameter and it fills the pane
      * with the enemies for level 3
      *
-     * 5 easy 4 medium 3 hard enemies
+     * 3 easy 2 medium 1 hard enemies in default mode
      *
      * @param root
      */
     private void callEnemiesForLevel3(Pane root) {
-        for (int i = 0; i < 1; i++) {
-            GameObject enemy = new GameObject(600 + i*200, 100, 60, 60, "enemy", "easy");
-            enemy.setFill(easyImagePattern);
-            root.getChildren().add(enemy);
-        }
-        for (int i = 0; i < 1; i++) {
-            GameObject enemy = new GameObject(600 + i*200, 175, 60, 60, "enemy", "medium");
-            enemy.setFill(mediumImagePattern);
-            //root.getChildren().add(enemy);
-        }
-        for (int i = 0; i < 1; i++) {
-            GameObject enemy = new GameObject(600 + i*200, 250, 60, 60, "enemy", "hard");
-            enemy.setFill(hardImagePattern);
-            //root.getChildren().add(enemy);
-        }
+        callEasyEnemies(root);
+        callMediumEnemies(root);
+        callDifficultEnemies(root);
     }
 
+    /**
+     * this function takes a pane and
+     * it fills the pane with the boss enemy.
+     * 1 boss enemy in default mode
+     * @param root
+     */
     private void callEnemiesForLevel4(Pane root) {
         GameObject enemy = new GameObject(550, 150, 160, 160, "enemy", "boss");
         enemy.setFill(hardImagePattern);
@@ -743,7 +743,7 @@ public class GameController {
      *
      * type is used for which type the object is, like player, enemy bullet, line
      *
-     * difficuly is used for enemy
+     * difficulty is used for enemy
      */
     private static class GameObject extends Rectangle {
         private boolean dead = false;
@@ -780,19 +780,19 @@ public class GameController {
         }
 
         void moveLeft() {
-            setTranslateX(getTranslateX() - HORIZONTALSTEP);
+            setTranslateX(getTranslateX() - HORIZONTAL_STEP);
         }
 
         void moveRight() {
-            setTranslateX(getTranslateX() + HORIZONTALSTEP);
+            setTranslateX(getTranslateX() + HORIZONTAL_STEP);
         }
 
         void moveUp() {
-            setTranslateY(getTranslateY() - VERTICALSTEP * 2);
+            setTranslateY(getTranslateY() - VERTICAL_UP_STEP);
         }
 
         void moveDown() {
-            setTranslateY(getTranslateY() + VERTICALSTEP);
+            setTranslateY(getTranslateY() + VERTICAL_DOWN_STEP);
         }
 
         void translate(int x, int y) {
