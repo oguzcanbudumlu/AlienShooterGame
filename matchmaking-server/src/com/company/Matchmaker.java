@@ -1,7 +1,8 @@
 package com.company;
 
-import com.company.Entities.ServerMessage;
-import com.company.Entities.Session;
+import com.company.entities.ServerMessage;
+import com.company.entities.Session;
+import com.company.utilities.Constants;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 
@@ -9,6 +10,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+
+import static com.company.utilities.Constants.*;
 
 
 /**
@@ -25,13 +29,13 @@ import java.net.Socket;
 public class Matchmaker {
 
     public static void main(String[] args) throws IOException {
-        final int PORT = 8000;
+        final int port = PORT;
         ServerMessage serverMessage;
 
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
-        ServerSocket serverSocket = new ServerSocket(PORT);
-        System.out.println("Server has been started at port " + PORT + ".");
+        ServerSocket serverSocket = new ServerSocket(port);
+        System.out.println("Server has been started at port " + port + ".");
 
         while (true) {
             System.out.println("Waiting for the players..");
@@ -39,9 +43,9 @@ public class Matchmaker {
             Socket player1 = serverSocket.accept();
             System.out.println("Player1 has joined the game.");
 
-            serverMessage = new ServerMessage(1, 0, 1000, false, false);
+            serverMessage = new ServerMessage(1, 0, INIT_HEALTH, false, false);
             String messagePlayer1 = objectWriter.writeValueAsString(serverMessage);
-            serverMessage = new ServerMessage(2, 0, 1000, false, false);
+            serverMessage = new ServerMessage(2, 0, INIT_HEALTH, false, false);
             String messagePlayer2 = objectWriter.writeValueAsString(serverMessage);
 
             Socket player2 = serverSocket.accept();

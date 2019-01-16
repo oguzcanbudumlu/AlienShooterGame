@@ -2,10 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d9ec3b3-6988-4b53-b172-027811d0d9e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/RestConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/RestConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Utilities/RestConsumer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Utilities/RestConsumer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/company/utilities/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/GameOverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/GameOverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/LeaderboardsTablesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/SignInFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/SignInFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/SignUpFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/controllers/SignUpFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/ClientMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/ClientMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/Score.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/ServerMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/entities/ServerMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/AlertHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/utilities/AlertHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/utilities/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/RestConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/java/com/example/alienshooterclientside/utilities/RestConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/gameOverLayout_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/gameOverLayout_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/leaderboardsTables_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/leaderboardsTables_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/mainMenu_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/mainMenu_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/signInForm_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/signInForm_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/signUpForm_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/main/resources/FXMLFiles/signUpForm_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/src/test/java/com/example/alienshooterclientside/AlienshooterClientsideApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/src/test/java/com/example/alienshooterclientside/AlienshooterClientsideApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/gameOverLayout_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/gameOverLayout_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/leaderboardsTables_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/leaderboardsTables_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/mainMenu_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/mainMenu_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/signInForm_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/signInForm_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/signUpForm_final.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/FXMLFiles/signUpForm_final.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/GameController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/GameController$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/GameController$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/GameController$GameObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/GameController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/GameOverController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/MainMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/SignInFormController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Controllers/SignUpFormController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Entities/ClientMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Entities/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Entities/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Entities/Score.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Entities/ServerMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Utilities/AlertHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Utilities/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/classes/com/example/alienshooterclientside/Utilities/RestConsumer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alienshooter-clientside/target/test-classes/com/example/alienshooterclientside/AlienshooterClientsideApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/../alienshooter-clientside/target/test-classes/com/example/alienshooterclientside/AlienshooterClientsideApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/matchmaking-server/com/company/Entities/ClientMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/matchmaking-server/com/company/Entities/ServerMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/matchmaking-server/com/company/Entities/Session.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Entities/ClientMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/entities/ClientMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Entities/ServerMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/entities/ServerMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Entities/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/entities/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Matchmaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Matchmaker.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,11 +65,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Matchmaker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+            <state relative-caret-position="387">
+              <caret line="50" column="51" lean-forward="true" selection-start-line="50" selection-start-column="51" selection-end-line="50" selection-end-column="51" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/company/utilities/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/company/entities/Session.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="115" column="31" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -29,31 +99,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/Entities/Session.java">
+        <entry file="file://$PROJECT_DIR$/src/com/company/entities/ClientMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="195">
+              <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/Entities/ClientMessage.java">
+        <entry file="file://$PROJECT_DIR$/src/com/company/entities/ServerMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/Entities/ServerMessage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding>
                 <element signature="e#1103#1104#0" expanded="true" />
                 <element signature="e#1135#1136#0" expanded="true" />
@@ -78,6 +136,8 @@
       <find>sessionno</find>
       <find>objectmapper</find>
       <find>gson</find>
+      <find>health &lt;</find>
+      <find>health</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -90,6 +150,8 @@
         <option value="$PROJECT_DIR$/src/com/company/Entities/ClientMessage.java" />
         <option value="$PROJECT_DIR$/src/com/company/Entities/Session.java" />
         <option value="$PROJECT_DIR$/src/com/company/Matchmaker.java" />
+        <option value="$PROJECT_DIR$/src/com/company/entities/Session.java" />
+        <option value="$PROJECT_DIR$/src/com/company/utilities/Constants.java" />
       </list>
     </option>
   </component>
@@ -134,7 +196,14 @@
               <item name="matchmaking-server" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="company" type="462c0819:PsiDirectoryNode" />
-              <item name="Entities" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="matchmaking-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="matchmaking-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="company" type="462c0819:PsiDirectoryNode" />
+              <item name="utilities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="matchmaking-server" type="b2602c69:ProjectViewProjectNode" />
@@ -151,7 +220,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547669073385" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547670784201" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../alienshooter-clientside" />
   </component>
   <component name="RecentsManager">
@@ -221,15 +290,16 @@
       <option name="presentableId" value="Default" />
       <updated>1547450788702</updated>
       <workItem from="1547661805518" duration="77000" />
-      <workItem from="1547663009880" duration="4962000" />
+      <workItem from="1547663009880" duration="6510000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5039000" />
+    <option name="totallyTimeSpent" value="6587000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1366" y="-4" width="1366" height="772" extended-state="6" />
+    <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26283988" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -275,27 +345,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Entities/Session.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Matchmaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        <state relative-caret-position="387">
+          <caret line="50" column="51" lean-forward="true" selection-start-line="50" selection-start-column="51" selection-end-line="50" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Entities/ClientMessage.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/entities/ClientMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="195">
+          <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Entities/ServerMessage.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/entities/ServerMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding>
             <element signature="e#1103#1104#0" expanded="true" />
             <element signature="e#1135#1136#0" expanded="true" />
@@ -303,13 +373,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Matchmaker.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/entities/Session.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+        <state relative-caret-position="290">
+          <caret line="115" column="31" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/utilities/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>

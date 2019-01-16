@@ -1,9 +1,9 @@
 package com.example.alienshooterclientside;
 
-import com.example.alienshooterclientside.Entities.Game;
-import com.example.alienshooterclientside.Entities.Player;
-import com.example.alienshooterclientside.Entities.Score;
-import com.example.alienshooterclientside.Utilities.RestConsumer;
+import com.example.alienshooterclientside.entities.Game;
+import com.example.alienshooterclientside.entities.Player;
+import com.example.alienshooterclientside.entities.Score;
+import com.example.alienshooterclientside.utilities.RestConsumer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
