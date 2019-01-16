@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="matchmaking-server:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/matchmaking_server_jar</output-path>
+    <root id="archive" name="matchmaking-server.jar">
+      <element id="module-output" name="matchmaking-server" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/My Library/jackson-mapper-asl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/My Library/gson-2.6.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/My Library/jackson-all-1.9.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
