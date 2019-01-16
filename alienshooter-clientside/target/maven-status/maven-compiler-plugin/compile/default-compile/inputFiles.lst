@@ -1,13 +1,14 @@
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/AlienshooterClientsideApplication.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/SignInFormController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/RestConsumer.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Score.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/GameOverController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/AlertHelper.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/Constants.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/SignUpFormController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/GameController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Player.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Game.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/MainMenuController.java
-/home/can/Desktop/gameProject (4th copy)/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/RestConsumer.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Player.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/GameOverController.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Game.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Utilities/AlertHelper.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/ClientMessage.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/ServerMessage.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/SignUpFormController.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Entities/Score.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/SignInFormController.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/AlienshooterClientsideApplication.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/LeaderboardsTablesController.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/GameController.java
+/home/can/Desktop/PROJECT/project/alienshooter-clientside/src/main/java/com/example/alienshooterclientside/Controllers/MainMenuController.java
