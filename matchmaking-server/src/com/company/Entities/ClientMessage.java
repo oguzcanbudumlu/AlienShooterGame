@@ -1,7 +1,5 @@
 package com.company.Entities;
 
-
-
 public class ClientMessage {
     private int status;
     private boolean shot;

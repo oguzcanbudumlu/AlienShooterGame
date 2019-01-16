@@ -9,8 +9,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-
-
 public class Session implements Runnable {
     private Socket player1;
     private Socket player2;
@@ -38,16 +36,6 @@ public class Session implements Runnable {
     ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
     Gson gson = new Gson();
 
-    /**
-     * After two player connected to Matchmaker server,
-     * for common game, a Session is created. All data
-     * is transmitted over this session. Matchmaker server
-     * acts a bridge between the two matching players.
-     *
-     * @param player1
-     * @param player2
-     * @throws IOException
-     */
     public Session(Socket player1, Socket player2) throws IOException {
         this.player1 = player1;
         this.player2 = player2;
@@ -69,8 +57,6 @@ public class Session implements Runnable {
         new Thread(() -> {
             try {
                 while (true) {
-
-
                     if (health < 0) {
                         msgToPlayer1.setStatus(4);
                         msgToPlayer1.setWon(false);
@@ -165,12 +151,14 @@ public class Session implements Runnable {
         if (player == player1) {
             String response = fromPlayer1.readUTF();
             String message = new String(response.getBytes(), "UTF-8");
+            //System.out.println(message);
             msgFromPlayer1 = gson.fromJson(message, ClientMessage.class);
 
         }
         else {
             String response = fromPlayer2.readUTF();
             String message = new String(response.getBytes(), "UTF-8");
+            //System.out.println(message);
             msgFromPlayer2 = gson.fromJson(message, ClientMessage.class);
 
         }

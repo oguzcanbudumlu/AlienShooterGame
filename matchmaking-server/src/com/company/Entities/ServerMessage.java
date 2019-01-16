@@ -1,15 +1,5 @@
 package com.company.Entities;
 
-/**
- * This class is format of the messages
- * which are transmitted from Matchmaker
- * server to clients(players).
- *
- * status: 1 for player1, 2 for player2
- * position: position of related player
- * health: health of related player
- * shot:
- */
 public class ServerMessage {
     private int status;
     private int position;
