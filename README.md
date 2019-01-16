@@ -105,7 +105,7 @@ java -jar alienshooter-clientside-0.0.1-SNAPSHOT.jar
 
 In this phase, we created another server for multiplayer game. After players completed first 3 level of the game, they connect to this server and play the game in multiplayer mode. This server just provides communication between players and acts a referee, which determines who has won the game.
 
-WAR file of this server can be found in executables folder:
+JAR file of this server can be found in executables folder:
 ```
 cd executables
 java -jar matchmaking-server.jar
