@@ -34,7 +34,6 @@ public class Session implements Runnable {
 
     private int health = INIT_HEALTH;
 
-    // initial positions for players
     private int posPlayer1 = INIT_POS_OF_PLAYER1;
     private int posPlayer2 = INIT_POS_OF_PLAYER2;
 
@@ -52,11 +51,11 @@ public class Session implements Runnable {
         fromPlayer2 = new DataInputStream(player2.getInputStream());
         toPlayer2 = new DataOutputStream(player2.getOutputStream());
 
-        msgToPlayer1 = new ServerMessage(3, posPlayer1, health, false, false);
-        msgToPlayer2 = new ServerMessage(3, posPlayer2, health, false, false);
+        msgToPlayer1 = new ServerMessage(GAME_CONTINUING, posPlayer1, health, INIT_SHOT, INIT_WON);
+        msgToPlayer2 = new ServerMessage(GAME_CONTINUING, posPlayer2, health, INIT_SHOT, INIT_WON);
 
-        msgFromPlayer1 = new ClientMessage(0, false, false, 0);
-        msgFromPlayer2 = new ClientMessage(0, false, false, 0);
+        msgFromPlayer1 = new ClientMessage(0, INIT_SHOT, INIT_DAMAGED, INIT_POSITION);
+        msgFromPlayer2 = new ClientMessage(0, INIT_SHOT, INIT_DAMAGED, INIT_POSITION);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class Session implements Runnable {
             try {
                 while (true) {
                     if (health < LOWER_HEALTH_LIMIT) {
-                        msgToPlayer1.setStatus(4);
+                        msgToPlayer1.setStatus(GAME_FINISHED);
                         msgToPlayer1.setWon(false);
                         transmitMessage(player1);
                         break;
@@ -75,7 +74,7 @@ public class Session implements Runnable {
                     if (msgFromPlayer1.getDamaged()) {
                         health -= HEALTH_DROP_AMOUNT;
                         if (health < LOWER_HEALTH_LIMIT) {
-                            msgToPlayer1.setStatus(4);
+                            msgToPlayer1.setStatus(GAME_FINISHED);
                             msgToPlayer1.setWon(true);
                             transmitMessage(player1);
                             break;
@@ -85,7 +84,7 @@ public class Session implements Runnable {
                         shotCountPlayer1++;
                     }
                     msgToPlayer1.setShot(false);
-                    msgToPlayer1.setStatus(3);
+                    msgToPlayer1.setStatus(GAME_CONTINUING);
                     msgToPlayer1.setHealth(health);
                     msgToPlayer1.setPosition(msgFromPlayer2.getPosition());
                     if (shotCountPlayer2 > 0) {
@@ -105,7 +104,7 @@ public class Session implements Runnable {
             try {
                 while (true) {
                     if (health < LOWER_HEALTH_LIMIT) {
-                        msgToPlayer2.setStatus(4);
+                        msgToPlayer2.setStatus(GAME_FINISHED);
                         msgToPlayer2.setWon(false);
                         transmitMessage(player2);
                         break;
@@ -115,7 +114,7 @@ public class Session implements Runnable {
                     if (msgFromPlayer2.getDamaged()) {
                         health -= HEALTH_DROP_AMOUNT;
                         if (health < LOWER_HEALTH_LIMIT) {
-                            msgToPlayer2.setStatus(4);
+                            msgToPlayer2.setStatus(GAME_FINISHED);
                             msgToPlayer2.setWon(true);
                             transmitMessage(player2);
                             break;
@@ -125,7 +124,7 @@ public class Session implements Runnable {
                         shotCountPlayer2++;
                     }
                     msgToPlayer2.setShot(false);
-                    msgToPlayer2.setStatus(3);
+                    msgToPlayer2.setStatus(GAME_CONTINUING);
                     msgToPlayer2.setHealth(health);
                     msgToPlayer2.setPosition(msgFromPlayer1.getPosition());
                     if (msgFromPlayer1.getShot()) shotCountPlayer1++;

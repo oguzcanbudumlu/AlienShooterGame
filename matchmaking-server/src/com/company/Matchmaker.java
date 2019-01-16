@@ -2,7 +2,6 @@ package com.company;
 
 import com.company.entities.ServerMessage;
 import com.company.entities.Session;
-import com.company.utilities.Constants;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 
@@ -43,9 +42,9 @@ public class Matchmaker {
             Socket player1 = serverSocket.accept();
             System.out.println("Player1 has joined the game.");
 
-            serverMessage = new ServerMessage(1, 0, INIT_HEALTH, false, false);
+            serverMessage = new ServerMessage(PLAYER1_JOINED, INIT_POSITION, INIT_HEALTH, INIT_SHOT, INIT_WON);
             String messagePlayer1 = objectWriter.writeValueAsString(serverMessage);
-            serverMessage = new ServerMessage(2, 0, INIT_HEALTH, false, false);
+            serverMessage = new ServerMessage(PLAYER2_JOINED, INIT_POSITION, INIT_HEALTH, INIT_SHOT, INIT_WON);
             String messagePlayer2 = objectWriter.writeValueAsString(serverMessage);
 
             Socket player2 = serverSocket.accept();
