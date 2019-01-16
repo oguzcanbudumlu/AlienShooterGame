@@ -10,6 +10,7 @@ public final class Constants {
 
 
         // status numbers in ClientMessage's and ServerMessage's
+        public static final int INIT_STATUS = 0;
         public static final int PLAYER1_JOINED = 1;
         public static final int PLAYER2_JOINED = 2;
         public static final int GAME_CONTINUING = 3;
@@ -19,6 +20,7 @@ public final class Constants {
         public static final boolean INIT_SHOT = false;
         public static final int INIT_POSITION = 0;
         public static final boolean INIT_DAMAGED = false;
+
 
 
 }

@@ -42,6 +42,16 @@ public class Session implements Runnable {
 
     Gson gson = new Gson(); // in order to convert ClientMessage and ServerMessage to String format or vice versa
 
+
+    /**
+     * When two players exist for game, session is started with
+     * this function. In this function, message objects are created
+     * for data exchange and input, output streams for each side of
+     * server and players are created.
+     * @param player1
+     * @param player2
+     * @throws IOException
+     */
     public Session(Socket player1, Socket player2) throws IOException {
         this.player1 = player1;
         this.player2 = player2;
@@ -54,10 +64,19 @@ public class Session implements Runnable {
         msgToPlayer1 = new ServerMessage(GAME_CONTINUING, posPlayer1, health, INIT_SHOT, INIT_WON);
         msgToPlayer2 = new ServerMessage(GAME_CONTINUING, posPlayer2, health, INIT_SHOT, INIT_WON);
 
-        msgFromPlayer1 = new ClientMessage(0, INIT_SHOT, INIT_DAMAGED, INIT_POSITION);
-        msgFromPlayer2 = new ClientMessage(0, INIT_SHOT, INIT_DAMAGED, INIT_POSITION);
+        msgFromPlayer1 = new ClientMessage(INIT_STATUS, INIT_SHOT, INIT_DAMAGED, INIT_POSITION);
+        msgFromPlayer2 = new ClientMessage(INIT_STATUS, INIT_SHOT, INIT_DAMAGED, INIT_POSITION);
     }
 
+    /**
+     * It is overriden function of Runnable interface.
+     * This function is decision mechanism of server,
+     * which means that server determines who has won
+     * the game in this function. Also, data exchange
+     * is done via this function. For this purpose,
+     * two threads are created for each player.
+     *
+     */
     @Override
     public void run() {
         new Thread(() -> {
@@ -142,6 +161,11 @@ public class Session implements Runnable {
         }).start();
     }
 
+    /**
+     * Server sends messages to players via this function.
+     * @param player
+     * @throws IOException
+     */
     private void transmitMessage(Socket player) throws IOException {
         if (player == player1) {
             String message = gson.toJson(msgToPlayer1);
@@ -153,6 +177,12 @@ public class Session implements Runnable {
         }
     }
 
+
+    /**
+     * Server receives messages from players via this function.
+     * @param player
+     * @throws IOException
+     */
     private void receiveMessage(Socket player) throws IOException {
         if (player == player1) {
             String response = fromPlayer1.readUTF();
