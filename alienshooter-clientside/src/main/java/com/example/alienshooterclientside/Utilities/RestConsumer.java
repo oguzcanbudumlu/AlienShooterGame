@@ -123,20 +123,17 @@ public class RestConsumer {
         return response;
     }
 
+
     /**
-     * This getPlayerId functions is used when we save a game to the database and a game needs a player,
-     * this player needs to contain all the attributes like Player(playerId, username, password).
-     * So this is used when we add a new game to the database.
-     * It takes a String nickname as a parameter and returns the playerId with this username.
-     * Its a get request to the REST service.
-     * @param nickname
-     * @return the playerId with the nickname
+     * This is helper function
+     * of getNextGameId and
+     * getPlayerId.
+     * @param address
+     * @return
      */
-    public long getPlayerId(String nickname) {
-        long playerId = -1;
+    public long getId(String address){
+        long id = -1;
         try {
-            String address =  ADDRESS + "/playerid/";
-            address = address.concat(nickname);
             URL url = new URL(address);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -154,14 +151,43 @@ public class RestConsumer {
             in.close();
             connection.disconnect();
 
-            playerId = Long.parseLong(response.toString());
+            id = Long.parseLong(response.toString());
         } catch (MalformedURLException e) {
-            System.out.println("abc");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return playerId;
+        return id;
+
+    }
+
+    /**
+     * This getPlayerId functions is used when we save a game to the database and a game needs a player,
+     * this player needs to contain all the attributes like Player(playerId, username, password).
+     * So this is used when we add a new game to the database.
+     * It takes a String nickname as a parameter and returns the playerId with this username.
+     * Its a get request to the REST service.
+     * @param nickname
+     * @return the playerId with the nickname
+     */
+    public long getPlayerId(String nickname) {
+        String address =  ADDRESS + "/playerid/";
+        address = address.concat(nickname);
+        return getId(address);
+    }
+
+
+    /**
+     * This getNextGameId function is used to get a new gameId.
+     * We need such a function because when we add a new game to the datase,
+     * we need a unique gameId. We get it with this function.
+     * @return long nextGameId
+     */
+    public long getNextGameId() {
+        String address = ADDRESS +
+                "/getNextGameId/";
+
+        return getId(address);
     }
 
 
@@ -194,7 +220,6 @@ public class RestConsumer {
     }
 
 
-
     /**
      * This addGame function is used to save a game to the database.
      * It takes a game object as parametes and it converts this game like String json.
@@ -207,7 +232,6 @@ public class RestConsumer {
             RestTemplate restTemplate = new RestTemplate();
 
             String gameAsString = gameMapper(game);
-            System.out.println(gameAsString);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -223,42 +247,6 @@ public class RestConsumer {
     }
 
 
-    /**
-     * This getNextGameId function is used to get a new gameId.
-     * We need such a function because when we add a new game to the datase,
-     * we need a unique gameId. We get it with this function.
-     * @return long nextGameId
-     */
-    public long getNextGameId() {
-        long gameId = -1;
-        try {
-            String address = ADDRESS +
-                    "/getNextGameId/";
-            URL url = new URL(address);
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-
-            String line;
-            StringBuffer response = new StringBuffer();
-            while ((line = in.readLine()) != null) {
-                response.append(line);
-
-            }
-
-            in.close();
-            connection.disconnect();
-
-            gameId = Long.parseLong(response.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return gameId;
-    }
 
     /**
      * This function is required because we need to show the scoreboard to the players
@@ -281,7 +269,7 @@ public class RestConsumer {
      * @return List<Score> scoreBoardWeekly
      */
     public List<Score> getScoreBoardWeekly() {
-            String address = ADDRESS +
+        String address = ADDRESS +
                     "/scoreboardweekly/";
         return getScoreBoard(address);
     }
@@ -309,7 +297,6 @@ public class RestConsumer {
             response.append(line);
 
         }
-        System.out.println(response.toString());
 
         JSONArray jsonArray = new JSONArray(response.toString());
         for (int i = 0; i < jsonArray.length(); i++) {

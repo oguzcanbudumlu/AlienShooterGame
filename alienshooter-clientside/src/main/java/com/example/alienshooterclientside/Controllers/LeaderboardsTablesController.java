@@ -120,7 +120,6 @@ public class LeaderboardsTablesController implements Initializable {
         List<Score> scoreListAllTime = restConsumer.getScoreBoardWeekly();
         ObservableList<Score> weeklyScores = FXCollections.observableArrayList();
         for (Score score : scoreListAllTime) {
-            System.out.println("here");
             weeklyScores.add(score);
         }
         return weeklyScores;
@@ -139,7 +138,6 @@ public class LeaderboardsTablesController implements Initializable {
         List<Score> scoreListAllTime = restConsumer.getScoreBoardAlltheTime();
         ObservableList<Score> allTimeScores = FXCollections.observableArrayList();
         for (Score score : scoreListAllTime) {
-            System.out.println("here");
             allTimeScores.add(score);
         }
         return allTimeScores;
